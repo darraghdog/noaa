@@ -17,7 +17,7 @@ from scipy.misc import imsave
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
 os.chdir('/home/darragh/Dropbox/noaa/feat')
-boundaries = [80,80,80,80,40]
+boundaries = [100,80,70,70,40]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 validate = False
 bbimg_trn = False
@@ -96,7 +96,7 @@ if bbimg_trn:
 # Check the resized boundary box works with the resized image
 # Test on an image
 if validate:
-    samp = 20 # try one sample image
+    samp = 100 # try one sample image
     block = blocks.iloc[samp]
     img = imread('../data/JPEGImages/%s_%s.jpg'%(block['id'], block['block']))
     bbox = coords[coords['id']==block['id']][coords['block']==block['block']]
@@ -105,4 +105,17 @@ if validate:
     for c, row in bbox.iterrows():
         if row['class'] < 4:
             plt.gca().add_patch(create_rect2(row))
-    
+
+# Send this file to disk
+coords.to_csv("block_coords.csv", index=False)
+
+# Write out VOC labels
+for c, irow in blocks.iterrows():
+    bbox = coords[coords['id']==block['id']][coords['block']==block['block']]
+    fo = open(os.path.join("yolo_labels/seals", '%s_%s.txt'%(irow['id'], irow['block'])),'w')
+    for c, row in bbox.iterrows():
+        dimvals = [row['x0'], row['y0'], row['x1'] - row['x0'], row['y1'] - row['y0']]
+        if row['class'] < 4:
+            fo.write('%s %s\n'%('0',' '.join(map(str, map(int, dimvals)))))
+    del bbox
+    fo.close()	
