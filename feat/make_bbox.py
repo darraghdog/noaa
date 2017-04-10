@@ -4,8 +4,6 @@ Created on Sat Apr  8 21:27:44 2017
 
 @author: darragh
 """
-
-
 import os
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -112,7 +110,7 @@ coords.to_csv("block_coords.csv", index=False)
 # Write out VOC labels
 for c, irow in blocks.iterrows():
     bbox = coords[coords['id']==block['id']][coords['block']==block['block']]
-    fo = open(os.path.join("yolo_labels/seals", '%s_%s.txt'%(irow['id'], irow['block'])),'w')
+    fo = open(os.path.join("../data/yolo_labels/seals", '%s_%s.txt'%(irow['id'], irow['block'])),'w')
     for c, row in bbox.iterrows():
         dimvals = [row['x0'], row['y0'], row['x1'] - row['x0'], row['y1'] - row['y0']]
         if row['class'] < 4:
