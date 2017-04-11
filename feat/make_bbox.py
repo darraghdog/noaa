@@ -117,3 +117,25 @@ for c, irow in blocks.iterrows():
             fo.write('%s %s\n'%('0',' '.join(map(str, map(int, dimvals)))))
     del bbox
     fo.close()	
+
+# Write out image file locations
+image_ids = []
+base_dir = os.path.join('/home/darragh/Dropbox/noaa', 'data/JPEGImages/')
+f = os.listdir(base_dir)
+f = [base_dir + s for s in f]
+
+# Train test split - evens in train; odds are test
+ftrn = [base_dir + s for s in f if int(s.split('_')[0])%2 == 0]
+ftst = [base_dir + s for s in f if int(s.split('_')[0])%2 == 1]
+
+# Write out train file
+list_file = open('../data/yolo_labels/train.txt', 'w')
+for fl in ftrn:
+    list_file.write(fl + '\n')
+list_file.close()
+
+# Write out test file
+list_file = open('../data/yolo_labels/test.txt', 'w')
+for fl in ftst:
+    list_file.write(fl + '\n')
+list_file.close()
