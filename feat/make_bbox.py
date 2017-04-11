@@ -106,6 +106,7 @@ if validate:
 
 # Send this file to disk
 coords.to_csv("block_coords.csv", index=False)
+coords = pd.read_csv("block_coords.csv")
 
 # Write out VOC labels
 for c, irow in blocks.iterrows():
@@ -121,12 +122,12 @@ for c, irow in blocks.iterrows():
 # Write out image file locations
 image_ids = []
 base_dir = os.path.join('/home/darragh/Dropbox/noaa', 'data/JPEGImages/')
+base_dir_ubuntu = os.path.join('/home/ubuntu/noaa', 'data/JPEGImages/')
 f = os.listdir(base_dir)
-f = [base_dir + s for s in f]
 
 # Train test split - evens in train; odds are test
-ftrn = [base_dir + s for s in f if int(s.split('_')[0])%2 == 0]
-ftst = [base_dir + s for s in f if int(s.split('_')[0])%2 == 1]
+ftrn = [base_dir_ubuntu + s for s in f if int(s.split('_')[0])%2 == 0]
+ftst = [base_dir_ubuntu + s for s in f if int(s.split('_')[0])%2 == 1]
 
 # Write out train file
 list_file = open('../data/yolo_labels/train.txt', 'w')
