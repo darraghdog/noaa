@@ -110,19 +110,20 @@ coords = pd.read_csv("block_coords.csv")
 
 # Write out VOC labels
 for c, irow in blocks.iterrows():
-    bbox = coords[coords['id']==block['id']][coords['block']==block['block']]
+    bbox = coords[coords['id']==irow['id']][coords['block']==irow['block']]
     fo = open(os.path.join("../data/yolo_labels/seals", '%s_%s.txt'%(irow['id'], irow['block'])),'w')
     for c, row in bbox.iterrows():
-        dimvals = [row['x0'], row['y0'], row['x1'] - row['x0'], row['y1'] - row['y0']]
+        dimvals = [row['x0']/544.0, row['y0']/544.0, (row['x1'] - row['x0'])/544.0, (row['y1'] - row['y0'])/544.0]
         if row['class'] < 4:
-            fo.write('%s %s\n'%('0',' '.join(map(str, map(int, dimvals)))))
+            fo.write('%s %s\n'%('0',' '.join(map(str, dimvals))))
+        
     del bbox
     fo.close()	
 
 # Write out image file locations
 image_ids = []
 base_dir = os.path.join('/home/darragh/Dropbox/noaa', 'data/JPEGImages/')
-base_dir_ubuntu = os.path.join('/home/ubuntu/noaa', 'data/JPEGImages/')
+base_dir_ubuntu = '/home/ubuntu/noaa/darknet/seals/JPEGImages/'
 f = os.listdir(base_dir)
 
 # Train test split - evens in train; odds are test
