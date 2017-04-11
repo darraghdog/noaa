@@ -1,0 +1,6 @@
+classes= 7
+train  = /home/ubuntu/fish/darknet/train.txt
+valid  = /home/ubuntu/fish/darknet/test.txt
+names = data/voc.FISH.names
+backup = backup
+
