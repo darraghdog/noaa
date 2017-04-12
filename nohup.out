@@ -1,0 +1,44 @@
+[I 20:47:36.634 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 20:47:36.638 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 20:47:40.167 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 20:47:40.870 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 20:47:40.870 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 20:47:40.874 NotebookApp] [nb_conda] enabled
+[I 20:47:42.680 NotebookApp] [nb_anacondacloud] enabled
+[I 20:47:42.683 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 20:47:42.683 NotebookApp] 0 active kernels 
+[I 20:47:42.683 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 20:47:42.683 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 21:07:09.208 NotebookApp] 302 GET / (176.61.36.2) 0.59ms
+[I 21:07:09.225 NotebookApp] 302 GET /tree (176.61.36.2) 0.81ms
+[I 21:07:15.521 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 0.86ms
+[W 21:07:41.189 NotebookApp] 404 GET /favicon.ico (176.61.36.2) 19.85ms referer=http://ec2-52-31-210-187.eu-west-1.compute.amazonaws.com:8888/files/darknet/seals/JPEGImages/0_03.jpg
+[W 21:55:00.347 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.27ms referer=None
+[W 22:53:57.567 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.64ms referer=None
+[W 23:42:50.454 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.57ms referer=None
+[W 00:44:36.860 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.11ms referer=None
+[W 01:32:17.154 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.39ms referer=None
+[I 04:30:53.537 NotebookApp] 302 GET / (196.52.43.60) 0.50ms
+[W 05:33:49.441 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.15ms referer=None
+[W 05:46:19.850 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.57ms referer=None
+[W 05:59:00.221 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.14ms referer=None
+[W 06:24:08.282 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.47ms referer=None
+[W 06:49:15.951 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.11ms referer=None
+[W 07:01:50.819 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.13ms referer=None
+[W 08:05:28.524 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.191) 1.11ms referer=None
+[W 08:31:31.618 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.56ms referer=None
+[W 08:44:17.381 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.63ms referer=None
+[W 08:56:54.748 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.07ms referer=None
+[W 09:10:29.140 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.10ms referer=None
+[W 09:48:53.621 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.191) 1.65ms referer=None
+[W 10:01:32.325 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.65ms referer=None
+[W 10:14:04.976 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.10ms referer=None
+[W 12:13:24.536 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 2.08ms referer=None
+[W 12:40:01.311 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.09ms referer=None
+[W 13:06:37.433 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.191) 1.72ms referer=None
+[W 13:32:59.149 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.67ms referer=None
+[W 13:46:19.194 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.60ms referer=None
+[W 14:15:17.434 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.11ms referer=None
+[W 15:08:06.388 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.45ms referer=None
+[W 16:02:07.861 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.68ms referer=None
+[W 16:29:28.706 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.69ms referer=None

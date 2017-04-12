@@ -4,4 +4,7 @@ cp voc.seals.data darknet/cfg/voc.seals.data
 cp coco.c darknet/src/coco.c
 cp yolo-voc-seals544.cfg darknet/cfg/yolo-voc-seals544.cfg
 mkdir darknet/backupseals
-mkdir darknet/backup
+#mkdir darknet/backup
+# then run ....
+# nohup ./darknet detector train cfg/voc.seals.data cfg/yolo-voc-seals544.cfg darknet19_448.conv.23  > nohup544.out 2>&1&
+# ./darknet detector valid cfg/voc.seals.data   cfg/yolo-voc-seals544.cfg   backup/yolo-voc-seals544_12000.weights
