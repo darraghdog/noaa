@@ -19,6 +19,7 @@ boundaries = [100,80,70,70,40]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 validate = False
 bbimg_trn = False
+bbimgblk_trn = True
 boundary = 40
 block_size = 544
 img_w = 4896 # width
@@ -37,6 +38,10 @@ def create_rect2(row):
     w = row['x1'] - row['x0']
     c = row['class']
     return plt.Rectangle((row['x0'], row['y0']), w, h, color=row['colors'], fill=False, lw=2)
+
+def create_rect3(row):
+    c = row['class']
+    return plt.Rectangle((row['x0']*544, row['y0']*544), row['w']*544, row['h']*544, color='red', fill=False, lw=2)
 
 # Load up the coords file
 coords = pd.read_csv("coords_meta.csv")
@@ -90,7 +95,23 @@ if bbimg_trn:
             blkw, blkh = int(block[0])*block_size, int(block[1])*block_size
             img_dump = img[(blkh):(blkh+block_size), (blkw):(blkw+block_size)]
             imsave('../data/JPEGImages/%s_%s.jpg'%(ii, block), img_dump)
-        
+
+if bbimgblk_trn:
+    for ii in blocks.id.unique():
+        if ii > 1:break
+        if ii%50==0: print 'Image # '+str(ii)
+        idx = blocks['id']==ii
+        img_in = imread('../data/Train/%s.jpg'%(ii))
+        img_blk = imread('../data/TrainDotted/%s.jpg'%(ii))
+        img = img_in
+        img[img_blk==0]=0
+        img = scipy.misc.imresize(img, (img_h, img_w), interp='nearest')
+        for c, rows in blocks[idx].iterrows():
+            block = rows['block']
+            blkw, blkh = int(block[0])*block_size, int(block[1])*block_size
+            img_dump = img[(blkh):(blkh+block_size), (blkw):(blkw+block_size)]
+            imsave('../data/JPEGImagesBlk/%s_%s.jpg'%(ii, block), img_dump)
+
 # Check the resized boundary box works with the resized image
 # Test on an image
 if validate:
@@ -106,16 +127,20 @@ if validate:
 
 # Send this file to disk
 coords.to_csv("block_coords.csv", index=False)
-coords = pd.read_csv("block_coords.csv")
+# coords = pd.read_csv("block_coords.csv")
+
+def decsc(a):
+    return '{:.7f}'.format(a)
 
 # Write out VOC labels
 for c, irow in blocks.iterrows():
     bbox = coords[coords['id']==irow['id']][coords['block']==irow['block']]
     fo = open(os.path.join("../data/yolo_labels/seals", '%s_%s.txt'%(irow['id'], irow['block'])),'w')
     for c, row in bbox.iterrows():
-        dimvals = [row['x0']/544.0, row['y0']/544.0, (row['x1'] - row['x0'])/544.0, (row['y1'] - row['y0'])/544.0]
+        dimvals = [(row['x0']/544.0)+.00001, (row['y0']/544.0)+.00001, \
+            ((row['x1'] - row['x0'])/544.0)-.00001, ((row['y1'] - row['y0'])/544.0)-.00001]
         if row['class'] < 4:
-            fo.write('%s %s\n'%('0',' '.join(map(str, dimvals))))
+            fo.write('%s %s\n'%('0',' '.join(map(decsc, dimvals))))
         
     del bbox
     fo.close()	
@@ -141,3 +166,17 @@ list_file = open('../data/yolo_labels/test.txt', 'w')
 for fl in ftst:
     list_file.write(fl + '\n')
 list_file.close()
+
+# Verify yolo files
+if validate:
+    samp = 100 # try one sample image
+    block = blocks.iloc[samp]
+    img = imread('../data/JPEGImages/%s_%s.jpg'%(block['id'], block['block']))
+    bbox = pd.read_csv('../data/yolo_labels/seals/%s_%s.txt'%(block['id'], block['block']),\
+                    delimiter = " ", header=None, names=['class', 'x0', 'y0', 'w', 'h'])
+    plt.figure(figsize=(15,15))
+    plt.imshow(img)
+    
+    for c, row in bbox.iterrows():
+        if row['class'] < 4:
+            plt.gca().add_patch(create_rect3(row))
