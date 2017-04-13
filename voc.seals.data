@@ -2,5 +2,5 @@ classes= 1
 train  = /home/ubuntu/noaa/darknet/train.txt
 valid  = /home/ubuntu/noaa/darknet/test.txt
 names = data/voc.seals.names
-backup = backup
+backup = backupblk
 
