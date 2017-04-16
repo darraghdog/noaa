@@ -1,0 +1,24 @@
+<annotation>
+	<folder>seals</folder>
+	<filename>804_43.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>544</width>
+		<height>544</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>seals</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>377.0</xmin>
+			<ymin>171.0</ymin>
+			<xmax>477.0</xmax>
+			<ymax>271.0</ymax>
+		</bndbox>
+	</object></annotation>

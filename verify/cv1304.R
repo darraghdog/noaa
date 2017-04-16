@@ -1,6 +1,8 @@
 rm(list=ls())
 library(data.table)
+# Best yolo input size is 
 yolo <- fread("~/Downloads/yolo_seals.csv")
+# yolo <- fread("~/Downloads/yolo_seals2176.csv")
 getwd()
 
 bad_train_ids = c(
@@ -47,3 +49,4 @@ par(mfrow=c(1,1))
 cor(y$sum, y_pred$V1)
 plot(y$sum, y_pred$V1, xlim=c(0,1300), ylim=c(0,1300))
 # [1] 0.6977999
+
