@@ -256,6 +256,7 @@ files = glob.glob('../data/ImageSets/Main/*')
 for f in files:
     os.remove(f)
     
+blocks = blocks.sort(['id', 'block']).reset_index(drop=True)
 trn_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==0]
 tst_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==1]
 
@@ -263,6 +264,10 @@ with open('../data/ImageSets/Main/trainval.txt','w') as f:
     for im in trn_img:
         f.write(im + '\n')
 
+with open('../data/ImageSets/Main/train.txt','w') as f:
+    for im in trn_img:
+        f.write(im + '\n')
+        
 with open('../data/ImageSets/Main/test.txt','w') as f:
     for im in tst_img:
         f.write(im + '\n')
