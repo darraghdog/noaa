@@ -21,7 +21,7 @@ colors = ['red', 'blue', 'green', 'yellow', 'pink']
 validate = False
 bbimg_trn = False
 bbimgblk_trn = False
-annotations = False
+annotations = True
 boundary = 40
 block_size = 544
 img_w = 4896 # width
@@ -183,16 +183,17 @@ if validate:
         if row['class'] < 4:
             plt.gca().add_patch(create_rect3(row))
 
-# #write Annotations
-import glob
-if not os.path.exists('../data/Annotations'):
-    os.mkdir('../data/Annotations')
-files = glob.glob('../data/Annotations/*')
-for f in files:
-    os.remove(f)
+
 
 # Write out annotation files for RFCN
 if annotations:
+    # #write Annotations
+    import glob
+    if not os.path.exists('../data/Annotations'):
+        os.mkdir('../data/Annotations')
+    files = glob.glob('../data/Annotations/*')
+    for f in files:
+        os.remove(f)
     c= "seals" # Only count seals for a start
     TRAIN_DIR = "../data/JPEGImagesBlk"
     for n, block in blocks.iterrows():
@@ -202,7 +203,7 @@ if annotations:
         filename = '%s_%s.jpg'%(block['id'], block['block'])
         tail = filename
         basename, file_extension = os.path.splitext(tail) 
-        if len(bbox) == 0:
+        if len(bbox) < 0:
             print(filename)
             print("no bbox")
         else:
