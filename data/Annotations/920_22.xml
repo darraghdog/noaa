@@ -112,9 +112,9 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0.0</xmin>
+			<xmin>0.1</xmin>
 			<ymin>415.0</ymin>
-			<xmax>43.0</xmax>
+			<xmax>43.1</xmax>
 			<ymax>485.0</ymax>
 		</bndbox>
 	</object>
@@ -270,7 +270,7 @@
 		<bndbox>
 			<xmin>495.0</xmin>
 			<ymin>457.0</ymin>
-			<xmax>544.0</xmax>
+			<xmax>543.9</xmax>
 			<ymax>527.0</ymax>
 		</bndbox>
 	</object>
@@ -367,7 +367,7 @@
 			<xmin>432.0</xmin>
 			<ymin>475.0</ymin>
 			<xmax>502.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -379,7 +379,7 @@
 			<xmin>472.0</xmin>
 			<ymin>475.0</ymin>
 			<xmax>542.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -391,7 +391,7 @@
 			<xmin>391.0</xmin>
 			<ymin>481.0</ymin>
 			<xmax>461.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -403,7 +403,7 @@
 			<xmin>362.0</xmin>
 			<ymin>482.0</ymin>
 			<xmax>432.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -412,10 +412,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0.0</xmin>
+			<xmin>0.1</xmin>
 			<ymin>495.0</ymin>
-			<xmax>46.0</xmax>
-			<ymax>544.0</ymax>
+			<xmax>46.1</xmax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -427,7 +427,7 @@
 			<xmin>264.0</xmin>
 			<ymin>496.0</ymin>
 			<xmax>334.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -487,7 +487,7 @@
 			<xmin>235.0</xmin>
 			<ymin>488.0</ymin>
 			<xmax>305.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -499,7 +499,7 @@
 			<xmin>233.0</xmin>
 			<ymin>498.0</ymin>
 			<xmax>303.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -511,6 +511,6 @@
 			<xmin>246.0</xmin>
 			<ymin>506.0</ymin>
 			<xmax>316.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object></annotation>
