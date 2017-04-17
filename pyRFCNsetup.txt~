@@ -1,0 +1,47 @@
+- <Done> copy experiments/scripts/rfcn_end2end.sh to a rfcn_end2end_noaa.sh
+	- In the case add a new parent directory under case $DATASET in, like below
+
+	Change from :
+		    TRAIN_IMDB="voc_0712_trainval"
+		    TEST_IMDB="voc_0712_test"
+		    PT_DIR="pascal_voc"
+		    ITERS=110000
+	To :
+		    TRAIN_IMDB="noaa_trainval"
+		    TEST_IMDB="noaa_test"
+		    PT_DIR="pascal_noaa"
+		    ITERS=50000
+			
+
+- <Done> copy the following solver.protxt 
+	 --solver models/pascal_voc/*
+  to 
+	 --solver models/pascal_noaa/*
+
+- Copy whatever is in 
+		    TRAIN_IMDB="voc_0712_trainval"
+		    TEST_IMDB="voc_0712_test"
+	over to folders :
+		    TRAIN_IMDB="noaa_trainval"
+		    TEST_IMDB="noaa_test"	
+
+- Change the follow to take off HAS_RPN on test
+	experiments/cfgs/rfcn_end2end.yml
+
+- In models/pascal_noaa/ResNet-101/rfcn_end2end/solver.prototxt
+	train_net: "models/pascal_noaa/ResNet-101/rfcn_end2end/train_agnostic.prototxt"
+
+
+- Somewhere we need to change the number of classes
+	- its in http://localhost:8888/edit/models/pascal_voc/ResNet-101/rfcn_end2end/train_agnostic.prototxt
+	-its in models/pascal_voc/ResNet-101/rfcn_end2end/test_agnostic.prototxt output_dim: 21
+	it may also be in /home/darragh/Dropbox/py-R-FCN/lib/datasets/pascal_voc.py ... but try testing with a low iterations without it.
+
+- For training run,
+	./tools/train_net.py --gpu 0 --solver models/pascal_noaa/ResNet-101/rfcn_end2end/solver.prototxt --weights data/imagenet_models/ResNet-101-model.caffemodel  --imdb noaa_trainval  --iters 1000 --cfg experiments/cfgs/rfcn_end2end.yml 
+ 
+- For testing run,
+	./tools/test_net.py --gpu 0 --net /home/ubuntu/py-R-FCN/output/rfcn_end2end/noaa_trainval/resnet50_rfcn_iter_110000.caffemodel  --imdb voc_test --cfg experiments/cfgs/rfcn_end2end.yml 
+
+# ./tools/test_net.py --gpu 0 --net /home/ubuntu/py-R-FCN/output/rfcn_end2end/voc_0712_trainval/resnet50_rfcn_iter_110000.caffemodel  --imdb voc_test --cfg experiments/cfgs/rfcn_end2end.yml
+

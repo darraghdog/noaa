@@ -12,6 +12,7 @@ from scipy import misc, ndimage
 from scipy.ndimage.interpolation import zoom
 from scipy.ndimage import imread
 from scipy.misc import imsave
+from PIL import Image
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
 os.chdir('/home/darragh/Dropbox/noaa/feat')
@@ -19,7 +20,8 @@ boundaries = [100,80,70,70,40]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 validate = False
 bbimg_trn = False
-bbimgblk_trn = True
+bbimgblk_trn = False
+annotations = False
 boundary = 40
 block_size = 544
 img_w = 4896 # width
@@ -155,13 +157,13 @@ f = os.listdir(base_dir)
 ftrn = [base_dir_ubuntu + s for s in f if int(s.split('_')[0])%2 == 0]
 ftst = [base_dir_ubuntu + s for s in f if int(s.split('_')[0])%2 == 1]
 
-# Write out train file
+# Write out yolo train file
 list_file = open('../data/yolo_labels/train.txt', 'w')
 for fl in ftrn:
     list_file.write(fl + '\n')
 list_file.close()
 
-# Write out test file
+# Write out yolo test file
 list_file = open('../data/yolo_labels/test.txt', 'w')
 for fl in ftst:
     list_file.write(fl + '\n')
@@ -180,3 +182,88 @@ if validate:
     for c, row in bbox.iterrows():
         if row['class'] < 4:
             plt.gca().add_patch(create_rect3(row))
+
+# #write Annotations
+import glob
+if not os.path.exists('../data/Annotations'):
+    os.mkdir('../data/Annotations')
+files = glob.glob('../data/Annotations/*')
+for f in files:
+    os.remove(f)
+
+# Write out annotation files for RFCN
+if annotations:
+    c= "seals" # Only count seals for a start
+    TRAIN_DIR = "../data/JPEGImagesBlk"
+    for n, block in blocks.iterrows():
+        # if n>102:break
+        bbox = pd.read_csv('../data/yolo_labels/seals/%s_%s.txt'%(block['id'], block['block']),\
+                     delimiter = " ", header=None, names=['class', 'x0', 'y0', 'w', 'h'])
+        filename = '%s_%s.jpg'%(block['id'], block['block'])
+        tail = filename
+        basename, file_extension = os.path.splitext(tail) 
+        if len(bbox) == 0:
+            print(filename)
+            print("no bbox")
+        else:
+            f = open('../data/Annotations/' + basename + '.xml','w') 
+            line = "<annotation>" + '\n'
+            f.write(line)
+            line = '\t<folder>' + c + '</folder>' + '\n'
+            f.write(line)
+            line = '\t<filename>' + tail + '</filename>' + '\n'
+            f.write(line)
+            line = '\t<source>\n\t\t<database>Source</database>\n\t</source>\n'
+            f.write(line)
+            # im=Image.open(TRAIN_DIR+ c + '/' + tail)
+            im=Image.open(TRAIN_DIR + '/' + tail)
+            (width, height) = im.size
+            line = '\t<size>\n\t\t<width>'+ str(width) + '</width>\n\t\t<height>' + \
+            str(height) + '</height>\n\t\t<depth>3</depth>\n\t</size>'
+            f.write(line)
+            line = '\n\t<segmented>0</segmented>'
+            f.write(line)
+            for a in bbox.iterrows():
+                a = list(a[1])
+                line = '\n\t<object>'
+                #line += '\n\t\t<name>' + a["class"].lower() + '</name>\n\t\t<pose>Unspecified</pose>'
+                line += '\n\t\t<name>' + c + '</name>\n\t\t<pose>Unspecified</pose>'
+                #line += '\n\t\t<name>fish</name>\n\t\t<pose>Unspecified</pose>'
+                line += '\n\t\t<truncated>0</truncated>\n\t\t<difficult>0</difficult>'
+                xmin = (round(a[1]*544,1))
+                line += '\n\t\t<bndbox>\n\t\t\t<xmin>' + str(xmin) + '</xmin>'
+                ymin = (round(a[2]*544,1))
+                line += '\n\t\t\t<ymin>' + str(ymin) + '</ymin>'
+                width = (round(a[3]*544,1))
+                height = (round(a[4]*544,1))
+                xmax = xmin + width
+                ymax = ymin + height
+                line += '\n\t\t\t<xmax>' + str(xmax) + '</xmax>'
+                line += '\n\t\t\t<ymax>' + str(ymax) + '</ymax>'
+                line += '\n\t\t</bndbox>'
+                line += '\n\t</object>'     
+                f.write(line)
+            line = '</annotation>'
+            f.write(line)
+            f.close()
+
+#write train ImageSets/Main
+if not os.path.exists('../data/ImageSets'):
+    os.mkdir('../data/ImageSets')
+if not os.path.exists('../data/ImageSets/Main'):
+    os.mkdir('../data/ImageSets/Main')
+files = glob.glob('../data/ImageSets/Main/*')
+for f in files:
+    os.remove(f)
+    
+trn_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==0]
+tst_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==1]
+
+with open('../data/ImageSets/Main/trainval.txt','w') as f:
+    for im in trn_img:
+        f.write(im + '\n')
+
+with open('../data/ImageSets/Main/test.txt','w') as f:
+    for im in tst_img:
+        f.write(im + '\n')
+
