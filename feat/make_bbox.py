@@ -196,6 +196,8 @@ if annotations:
         os.remove(f)
     c= "seals" # Only count seals for a start
     TRAIN_DIR = "../data/JPEGImagesBlk"
+    
+    pred_ls = []
     for n, block in blocks.iterrows():
         # if n>102:break
         bbox = pd.read_csv('../data/yolo_labels/seals/%s_%s.txt'%(block['id'], block['block']),\
@@ -203,10 +205,11 @@ if annotations:
         filename = '%s_%s.jpg'%(block['id'], block['block'])
         tail = filename
         basename, file_extension = os.path.splitext(tail) 
-        if len(bbox) < 0:
+        if len(bbox) == 0:
             print(filename)
             print("no bbox")
         else:
+            pred_ls.append(basename)
             f = open('../data/Annotations/' + basename + '.xml','w') 
             line = "<annotation>" + '\n'
             f.write(line)
@@ -248,28 +251,30 @@ if annotations:
             f.write(line)
             f.close()
 
-#write train ImageSets/Main
-if not os.path.exists('../data/ImageSets'):
-    os.mkdir('../data/ImageSets')
-if not os.path.exists('../data/ImageSets/Main'):
-    os.mkdir('../data/ImageSets/Main')
-files = glob.glob('../data/ImageSets/Main/*')
-for f in files:
-    os.remove(f)
+    #write train ImageSets/Main
+    if not os.path.exists('../data/ImageSets'):
+        os.mkdir('../data/ImageSets')
+    if not os.path.exists('../data/ImageSets/Main'):
+        os.mkdir('../data/ImageSets/Main')
+    files = glob.glob('../data/ImageSets/Main/*')
+    for f in files:
+        os.remove(f)
     
-blocks = blocks.sort(['id', 'block']).reset_index(drop=True)
-trn_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==0]
-tst_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==1]
-
-with open('../data/ImageSets/Main/trainval.txt','w') as f:
-    for im in trn_img:
-        f.write(im + '\n')
-
-with open('../data/ImageSets/Main/train.txt','w') as f:
-    for im in trn_img:
-        f.write(im + '\n')
-        
-with open('../data/ImageSets/Main/test.txt','w') as f:
-    for im in tst_img:
-        f.write(im + '\n')
-
+    #blocks = blocks.sort(['id', 'block']).reset_index(drop=True)
+    #trn_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==0]
+    #tst_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==1]
+    trn_img = [val for val in pred_ls if int(val.split('_')[0])%2==0]
+    tst_img = [val for val in pred_ls if int(val.split('_')[0])%2==1]
+    
+    with open('../data/ImageSets/Main/trainval.txt','w') as f:
+        for im in trn_img:
+            f.write(im + '\n')
+    
+    with open('../data/ImageSets/Main/train.txt','w') as f:
+        for im in trn_img:
+            f.write(im + '\n')
+            
+    with open('../data/ImageSets/Main/test.txt','w') as f:
+        for im in tst_img:
+            f.write(im + '\n')
+    
