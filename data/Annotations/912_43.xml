@@ -16,9 +16,9 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0.0</xmin>
+			<xmin>0.1</xmin>
 			<ymin>151.0</ymin>
-			<xmax>74.0</xmax>
+			<xmax>74.1</xmax>
 			<ymax>251.0</ymax>
 		</bndbox>
 	</object>
@@ -29,9 +29,9 @@
 		<difficult>0</difficult>
 		<bndbox>
 			<xmin>51.0</xmin>
-			<ymin>0.0</ymin>
+			<ymin>0.1</ymin>
 			<xmax>121.0</xmax>
-			<ymax>50.0</ymax>
+			<ymax>50.1</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -54,7 +54,7 @@
 		<bndbox>
 			<xmin>488.0</xmin>
 			<ymin>24.0</ymin>
-			<xmax>544.0</xmax>
+			<xmax>543.9</xmax>
 			<ymax>94.0</ymax>
 		</bndbox>
 	</object>
@@ -102,7 +102,7 @@
 		<bndbox>
 			<xmin>474.0</xmin>
 			<ymin>78.0</ymin>
-			<xmax>544.0</xmax>
+			<xmax>543.9</xmax>
 			<ymax>148.0</ymax>
 		</bndbox>
 	</object>
@@ -136,9 +136,9 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0.0</xmin>
+			<xmin>0.1</xmin>
 			<ymin>111.0</ymin>
-			<xmax>52.0</xmax>
+			<xmax>52.1</xmax>
 			<ymax>181.0</ymax>
 		</bndbox>
 	</object>
@@ -318,7 +318,7 @@
 		<bndbox>
 			<xmin>486.0</xmin>
 			<ymin>346.0</ymin>
-			<xmax>544.0</xmax>
+			<xmax>543.9</xmax>
 			<ymax>416.0</ymax>
 		</bndbox>
 	</object>
@@ -402,7 +402,7 @@
 		<bndbox>
 			<xmin>495.0</xmin>
 			<ymin>445.0</ymin>
-			<xmax>544.0</xmax>
+			<xmax>543.9</xmax>
 			<ymax>515.0</ymax>
 		</bndbox>
 	</object>
@@ -427,7 +427,7 @@
 			<xmin>224.0</xmin>
 			<ymin>483.0</ymin>
 			<xmax>294.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -439,7 +439,7 @@
 			<xmin>361.0</xmin>
 			<ymin>484.0</ymin>
 			<xmax>431.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -451,7 +451,7 @@
 			<xmin>429.0</xmin>
 			<ymin>495.0</ymin>
 			<xmax>499.0</xmax>
-			<ymax>544.0</ymax>
+			<ymax>543.9</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -462,7 +462,7 @@
 		<bndbox>
 			<xmin>501.0</xmin>
 			<ymin>41.0</ymin>
-			<xmax>544.0</xmax>
+			<xmax>543.9</xmax>
 			<ymax>111.0</ymax>
 		</bndbox>
 	</object></annotation>
