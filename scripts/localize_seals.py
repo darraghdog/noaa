@@ -32,10 +32,10 @@ K.set_image_dim_ordering('tf')
 
 
 # Params
-os.chdir('/home/darragh/Dropbox/noaa/feat')
+#os.chdir('/home/darragh/Dropbox/noaa/feat')
 CHECKPOINT_DIR = './checkpoints/checkpoint01/'
 make_train = False
-validate_train = True
+validate_train = False
 cutoff = 0.7
 block_size = 544
 img_w = 4896 # width
@@ -47,7 +47,7 @@ SEAL_CLASSES = ['NoS', 'Seal']
 ROWS = 100
 COLS = 100
 BATCHSIZE = 64
-TRAIN_DIR = '../data/JPEGImagesBlk'
+TRAIN_DIR = '../darknet/seals/JPEGImagesBlk'
 nb_perClass = int(BATCHSIZE / len(SEAL_CLASSES)) 
 
 # Functions
@@ -89,7 +89,7 @@ if make_train:
     gc.collect()
     
     # Get the ground truth labels
-    coords = pd.read_csv("coords_meta.csv")
+    coords = pd.read_csv("../feat/coords_meta.csv")
     train_meta = pd.read_csv("train_meta.csv", usecols = ['id', 'height', 'width', 'all_diff'])#,\
     train_meta.columns = ['id', 'img_height', 'img_width', 'all_diff']
     coords = pd.merge(coords, train_meta, on='id', how='inner')
@@ -122,7 +122,7 @@ else:
 if validate_train:
     cond = rfcnCV.img.str.contains('190')
     for img_name in rfcnCV[cond].img.unique():
-        img = imread('../data/JPEGImagesBlk/%s.jpg'%(img_name))
+        img = imread('../darknet/seals/JPEGImagesBlk/%s.jpg'%(img_name))
         bbox = rfcnCV[rfcnCV['img'] == img_name]
         bbox['w'] = bbox['x1'] - bbox['x0']
         bbox['h'] = bbox['y1'] - bbox['y0']
