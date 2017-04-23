@@ -223,5 +223,6 @@ samples_per_epoch = 20000
 model.fit_generator(train_generator(datagen=train_datagen, df=train_df), 
                     samples_per_epoch=samples_per_epoch, 
                     nb_epoch=12, verbose=0,
-                    callbacks=[early_stopping, model_checkpoint, learningrate_schedule],  # , tensorboard
+                    # callbacks=[early_stopping, model_checkpoint, learningrate_schedule], 
+                    callbacks=[early_stopping, learningrate_schedule],   
                     validation_data=(valid_x,valid_y), nb_worker=3, pickle_safe=True)
