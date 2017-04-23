@@ -13,19 +13,25 @@ from scipy.ndimage.interpolation import zoom
 from scipy.ndimage import imread
 from scipy.misc import imsave
 from PIL import Image
+import numpy as np
+import warnings
+warnings.filterwarnings('ignore')
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
 os.chdir('/home/darragh/Dropbox/noaa/feat')
 boundaries = [100,80,70,70,40]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 validate = False
+validate_rfcn = False
 bbimg_trn = False
+bbimg_tst = False # this is the big one
 bbimgblk_trn = False
-annotations = True
+annotations = False
 boundary = 40
 block_size = 544
 img_w = 4896 # width
 img_h = 3264 # height
+TESTDIR = '../data/Test'
 
 def create_rect(row):
     h = row['height']
@@ -42,8 +48,18 @@ def create_rect2(row):
     return plt.Rectangle((row['x0'], row['y0']), w, h, color=row['colors'], fill=False, lw=2)
 
 def create_rect3(row):
-    c = row['class']
     return plt.Rectangle((row['x0']*544, row['y0']*544), row['w']*544, row['h']*544, color='red', fill=False, lw=2)
+def create_rect4(row):
+    col = ['grey', 'pink','yellow', 'orange', 'red'][int(row['proba']*10)-5]
+    return plt.Rectangle((row['x0'], row['y0']), row['w'], row['h'], color=col, fill=False, lw=2)
+
+def create_rect5(row, is_seal):
+    col = ['grey', 'pink','yellow', 'orange', 'red'][int(row['proba']*10)-5]
+    if is_seal:
+        return plt.Rectangle((row['x0'], row['y0']), row['w'], row['h'], color=col, fill=False, lw=2)
+    else:
+        return plt.Rectangle((row['x0'], row['y0']), row['w'], row['h'], color=col, fill=False, lw=4)
+
 
 # Load up the coords file
 coords = pd.read_csv("coords_meta.csv")
@@ -99,8 +115,8 @@ if bbimg_trn:
             imsave('../data/JPEGImages/%s_%s.jpg'%(ii, block), img_dump)
 
 if bbimgblk_trn:
+    blocks_all = np.sort(blocks.block.unique())
     for ii in blocks.id.unique():
-        if ii > 1:break
         if ii%50==0: print 'Image # '+str(ii)
         idx = blocks['id']==ii
         img_in = imread('../data/Train/%s.jpg'%(ii))
@@ -108,11 +124,26 @@ if bbimgblk_trn:
         img = img_in
         img[img_blk==0]=0
         img = scipy.misc.imresize(img, (img_h, img_w), interp='nearest')
-        for c, rows in blocks[idx].iterrows():
-            block = rows['block']
+        for block in blocks_all:
             blkw, blkh = int(block[0])*block_size, int(block[1])*block_size
             img_dump = img[(blkh):(blkh+block_size), (blkw):(blkw+block_size)]
-            imsave('../data/JPEGImagesBlk/%s_%s.jpg'%(ii, block), img_dump)
+            if img_dump.max()>0:
+                imsave('../data/JPEGImagesBlk/%s_%s.jpg'%(ii, block), img_dump)
+                
+                
+if bbimg_tst:
+    blocks_all = np.sort(blocks.block.unique())
+    ct = 0 
+    for ii in os.listdir(TESTDIR):
+        ct += 1        
+        if ct%50==0: print 'Image # '+str(ii)
+        img = imread('%s/%s'%(TESTDIR, ii))
+        img = scipy.misc.imresize(img, (img_h, img_w), interp='nearest')
+        for block in blocks_all:
+            blkw, blkh = int(block[0])*block_size, int(block[1])*block_size
+            img_dump = img[(blkh):(blkh+block_size), (blkw):(blkw+block_size)]
+            if img_dump.max()>0:
+                imsave('../data/JPEGImagesTest/%s_%s.jpg'%(ii.split('.')[0], block), img_dump)
 
 # Check the resized boundary box works with the resized image
 # Test on an image
@@ -149,25 +180,35 @@ for c, irow in blocks.iterrows():
 
 # Write out image file locations
 image_ids = []
-base_dir = os.path.join('/home/darragh/Dropbox/noaa', 'data/JPEGImages/')
-base_dir_ubuntu = '/home/ubuntu/noaa/darknet/seals/JPEGImages/'
+base_dir = os.path.join('/home/darragh/Dropbox/noaa', 'data/JPEGImagesBlk/')
+base_dir_ubuntu = '/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/'
 f = os.listdir(base_dir)
 
 # Train test split - evens in train; odds are test
 ftrn = [base_dir_ubuntu + s for s in f if int(s.split('_')[0])%2 == 0]
 ftst = [base_dir_ubuntu + s for s in f if int(s.split('_')[0])%2 == 1]
 
-# Write out yolo train file
-list_file = open('../data/yolo_labels/train.txt', 'w')
-for fl in ftrn:
-    list_file.write(fl + '\n')
-list_file.close()
+def write_folds(ftrn, ftst, fold = 1):
+    # The training labels should only be added if they have a seal (ie a value in blocks)
+    foldtrn = [s for s in ftrn if ((blocks['id'] == int(s.split('/')[-1].split('_')[0])) & (blocks['block'] == s.split('/')[-1].split('_')[1].split('.')[0])).any()]
+    # Remove the '.jpg' from the image location
+    foldtrn = [s.split('.')[0] for s in foldtrn]
+    foldtst = [s.split('.')[0] for s in ftst]
+    # Write out yolo train file
+    list_file = open('../data/yolo_labels/trainfold' + str(fold) + '.txt', 'w')
+    for fl in foldtrn:
+        list_file.write(fl + '\n')
+    list_file.close()
+    # Write out yolo test file
+    list_file = open('../data/yolo_labels/testfold' + str(fold) + '.txt', 'w')
+    for fl in foldtst:
+        list_file.write(fl + '\n')
+    list_file.close()
 
-# Write out yolo test file
-list_file = open('../data/yolo_labels/test.txt', 'w')
-for fl in ftst:
-    list_file.write(fl + '\n')
-list_file.close()
+#Get RFCN with two foldCVsowecanpickup the errors
+write_folds(ftrn, ftst, fold = 1)
+write_folds(ftst, ftrn, fold = 2)
+
 
 # Verify yolo files
 if validate:
@@ -235,13 +276,17 @@ if annotations:
                 #line += '\n\t\t<name>fish</name>\n\t\t<pose>Unspecified</pose>'
                 line += '\n\t\t<truncated>0</truncated>\n\t\t<difficult>0</difficult>'
                 xmin = (round(a[1]*544,1))
+                if xmin==0.0: xmin=0.1 
                 line += '\n\t\t<bndbox>\n\t\t\t<xmin>' + str(xmin) + '</xmin>'
                 ymin = (round(a[2]*544,1))
+                if ymin==0.0: ymin=0.1 
                 line += '\n\t\t\t<ymin>' + str(ymin) + '</ymin>'
                 width = (round(a[3]*544,1))
                 height = (round(a[4]*544,1))
                 xmax = xmin + width
                 ymax = ymin + height
+                if xmax==544.0: xmax=543.9 
+                if ymax==544.0: ymax=543.9 
                 line += '\n\t\t\t<xmax>' + str(xmax) + '</xmax>'
                 line += '\n\t\t\t<ymax>' + str(ymax) + '</ymax>'
                 line += '\n\t\t</bndbox>'
@@ -277,4 +322,85 @@ if annotations:
     with open('../data/ImageSets/Main/test.txt','w') as f:
         for im in tst_img:
             f.write(im + '\n')
+
+
+# Write out image file locations
+if bbimg_tst:
+    image_ids = []
+    base_dir = os.path.join('/home/darragh/Dropbox/noaa', 'data/JPEGImagesTest/')
+    base_dir_ubuntu = '/home/ubuntu/noaa/darknet/seals/JPEGImagesTest/'
+    f = os.listdir(base_dir)
+    ftst_full = [base_dir_ubuntu + s.split('.')[0] for s in f]
+    list_file = open('../data/yolo_labels/test_full.txt', 'w')
+    for fl in ftst_full:
+        list_file.write(fl + '\n')
+    list_file.close()
+
+# Check the resized boundary box works with the resized image
+if validate_rfcn:
+    blocks_all = np.sort(blocks.block.unique())
+    imgfiles = os.listdir('../data/JPEGImagesBlk/')
+    rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30K_det_trainval_seals.txt",\
+                    delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+    rfcn['img'] = rfcn['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
+    rfcn = rfcn[rfcn['proba']>0.7]
+    rfcn = rfcn[(rfcn['x1']-rfcn['x0'])<150]
+    rfcn = rfcn[(rfcn['y1']-rfcn['y0'])<150]
+    # 245, 351, 541
+    # for samp in range(10,2100, 200):
+    for samp in blocks_all:
+        #block = blocks[blocks['id']%2==1].iloc[samp]
+        block = blocks.iloc[0]
+        img_samp = 1#583
+        block['id', 'block'] = img_samp, samp
+        if '%s_%s.jpg'%(block['id'], block['block']) in imgfiles:    
+            img = imread('../data/JPEGImagesBlk/%s_%s.jpg'%(block['id'], block['block']))
+            bbox = rfcn[rfcn['img'] == str(block['id']) + '_' + str(block['block'])]
+            bbox['w'] = bbox['x1'] - bbox['x0']
+            bbox['h'] = bbox['y1'] - bbox['y0']
+            plt.figure(figsize=(10,10))
+            plt.imshow(img) 
+            for c, row in bbox.iterrows():
+                is_seal = ((coords['id']==img_samp) & \
+                            (coords['block'] == samp) & \
+                            (coords['block_width']>(int(row['x0'])-20)) & \
+                            (coords['block_width']<(int(row['x1'])+20)) & \
+                            (coords['block_height']>(int(row['y0'])-20)) & \
+                            (coords['block_height']<(int(row['y1'])+20))).any()
+                plt.gca().add_patch(create_rect5(row, is_seal))    
+                break
+        else:
+            print 'Not there %s_%s.jpg'%(block['id'], block['block'])
+
+
+
+# Test on an image
+if validate_rfcn:
+    blocks_all = np.sort(blocks.block.unique())
+    imgfiles = os.listdir('../data/JPEGImagesTest/')
+    rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30000_det_test_all_seals_subset.txt",\
+                    delimiter = ",", header=1, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+    rfcn['img'] = rfcn['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesTest/', '')
+    rfcn = rfcn[rfcn['proba']>0.7]
+    rfcn = rfcn[(rfcn['x1']-rfcn['x0'])<150]
+    rfcn = rfcn[(rfcn['y1']-rfcn['y0'])<150]
+    # 245, 351, 541
+    # for samp in range(10,2100, 200):
+    for samp in blocks_all:
+        #block = blocks[blocks['id']%2==1].iloc[samp]
+        block = blocks.iloc[0]
+        block['id', 'block'] = 2674, samp
+        if '%s_%s.jpg'%(block['id'], block['block']) in imgfiles:
+            img = imread('../data/JPEGImagesTest/%s_%s.jpg'%(block['id'], block['block']))
+            bbox = rfcn[rfcn['img'] == str(block['id']) + '_' + str(block['block'])]
+            bbox['w'] = bbox['x1'] - bbox['x0']
+            bbox['h'] = bbox['y1'] - bbox['y0']
+            plt.figure(figsize=(10,10))
+            plt.imshow(img) 
+            for c, row in bbox.iterrows():
+                plt.gca().add_patch(create_rect4(row))    
+        else:
+            print 'Not there %s_%s.jpg'%(block['id'], block['block'])
     
+    
+ 
