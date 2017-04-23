@@ -205,7 +205,7 @@ base_model = ResNet50(weights='imagenet', include_top=False)
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
 x = Dropout(0.5)(x)
-x = Dense(256, init='glorot_normal')(x)
+x = Dense(64, init='glorot_normal')(x)
 x = LeakyReLU(alpha=0.33)(x)
 x = Dropout(0.5)(x)
 predictions = Dense(len(SEAL_CLASSES), init='glorot_normal', activation='softmax')(x)
@@ -218,7 +218,7 @@ for layer in base_model.layers:
 optimizer = Adam(lr=1e-4)
 model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
 
-samples_per_epoch = 20000
+samples_per_epoch = 2000
 # train the model on the new data for a few epochs
 model.fit_generator(train_generator(datagen=train_datagen, df=train_df), 
                     samples_per_epoch=samples_per_epoch, 
