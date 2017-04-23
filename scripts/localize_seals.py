@@ -32,10 +32,10 @@ K.set_image_dim_ordering('tf')
 
 
 # Params
-os.chdir('/home/darragh/Dropbox/noaa/feat')
+#os.chdir('/home/darragh/Dropbox/noaa/feat')
 CHECKPOINT_DIR = './checkpoints/checkpoint01/'
 make_train = False
-validate_train = True
+validate_train = False
 cutoff = 0.7
 block_size = 544
 img_w = 4896 # width
@@ -47,7 +47,7 @@ SEAL_CLASSES = ['NoS', 'Seal']
 ROWS = 100
 COLS = 100
 BATCHSIZE = 64
-TRAIN_DIR = '../data/JPEGImagesBlk'
+TRAIN_DIR = '../darknet/seals/JPEGImagesBlk'
 nb_perClass = int(BATCHSIZE / len(SEAL_CLASSES)) 
 
 # Functions
@@ -89,7 +89,7 @@ if make_train:
     gc.collect()
     
     # Get the ground truth labels
-    coords = pd.read_csv("coords_meta.csv")
+    coords = pd.read_csv("../feat/coords_meta.csv")
     train_meta = pd.read_csv("train_meta.csv", usecols = ['id', 'height', 'width', 'all_diff'])#,\
     train_meta.columns = ['id', 'img_height', 'img_width', 'all_diff']
     coords = pd.merge(coords, train_meta, on='id', how='inner')
@@ -122,7 +122,7 @@ else:
 if validate_train:
     cond = rfcnCV.img.str.contains('190')
     for img_name in rfcnCV[cond].img.unique():
-        img = imread('../data/JPEGImagesBlk/%s.jpg'%(img_name))
+        img = imread('../darknet/seals/JPEGImagesBlk/%s.jpg'%(img_name))
         bbox = rfcnCV[rfcnCV['img'] == img_name]
         bbox['w'] = bbox['x1'] - bbox['x0']
         bbox['h'] = bbox['y1'] - bbox['y0']
@@ -223,6 +223,11 @@ samples_per_epoch = 20000
 model.fit_generator(train_generator(datagen=train_datagen, df=train_df), 
                     samples_per_epoch=samples_per_epoch, 
                     nb_epoch=12, verbose=0,
+<<<<<<< HEAD
                     # callbacks=[early_stopping, model_checkpoint, learningrate_schedule], 
                     callbacks=[early_stopping, learningrate_schedule],   
                     validation_data=(valid_x,valid_y), nb_worker=3, pickle_safe=True)
+=======
+                    callbacks=[early_stopping, model_checkpoint, learningrate_schedule],  # , tensorboard
+                    validation_data=(valid_x,valid_y), nb_worker=3, pickle_safe=True)
+>>>>>>> de45da4fe071203591dddf41758c656e8abf54e8
