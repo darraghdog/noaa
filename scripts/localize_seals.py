@@ -32,7 +32,7 @@ K.set_image_dim_ordering('tf')
 
 
 # Params
-#os.chdir('/home/darragh/Dropbox/noaa/feat')
+# os.chdir('/home/darragh/Dropbox/noaa/feat')
 CHECKPOINT_DIR = './checkpoints/checkpoint01/'
 make_train = False
 validate_train = False
@@ -48,6 +48,7 @@ ROWS = 100
 COLS = 100
 BATCHSIZE = 64
 TRAIN_DIR = '../darknet/seals/JPEGImagesBlk'
+#TRAIN_DIR = '../data/JPEGImagesBlk'
 nb_perClass = int(BATCHSIZE / len(SEAL_CLASSES)) 
 
 # Functions
@@ -155,6 +156,8 @@ def train_generator(datagen, df):
             batch_y[i,seal] = 1
             i += 1
         yield (batch_x, batch_y)
+        #return (batch_x, batch_y)
+#X,y =   train_generator(train_datagen, train_df)
 
 
 # Lets make our validation set
@@ -205,7 +208,7 @@ base_model = ResNet50(weights='imagenet', include_top=False)
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
 x = Dropout(0.5)(x)
-x = Dense(256, init='glorot_normal')(x)
+x = Dense(64, init='glorot_normal')(x)
 x = LeakyReLU(alpha=0.33)(x)
 x = Dropout(0.5)(x)
 predictions = Dense(len(SEAL_CLASSES), init='glorot_normal', activation='softmax')(x)
@@ -218,16 +221,11 @@ for layer in base_model.layers:
 optimizer = Adam(lr=1e-4)
 model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
 
-samples_per_epoch = 20000
+samples_per_epoch = 2000
 # train the model on the new data for a few epochs
 model.fit_generator(train_generator(datagen=train_datagen, df=train_df), 
                     samples_per_epoch=samples_per_epoch, 
                     nb_epoch=12, verbose=0,
-<<<<<<< HEAD
                     # callbacks=[early_stopping, model_checkpoint, learningrate_schedule], 
                     callbacks=[early_stopping, learningrate_schedule],   
                     validation_data=(valid_x,valid_y), nb_worker=3, pickle_safe=True)
-=======
-                    callbacks=[early_stopping, model_checkpoint, learningrate_schedule],  # , tensorboard
-                    validation_data=(valid_x,valid_y), nb_worker=3, pickle_safe=True)
->>>>>>> de45da4fe071203591dddf41758c656e8abf54e8
