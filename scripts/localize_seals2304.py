@@ -34,7 +34,7 @@ K.set_image_dim_ordering('tf')
 # Params
 #os.chdir('/home/darragh/Dropbox/noaa/feat')
 CHECKPOINT_DIR = './checkpoints/checkpoint01/'
-make_train = False
+make_train = True # False
 validate_train = False
 cutoff = 0.7
 block_size = 544
@@ -78,7 +78,7 @@ def load_img(path, bbox, target_size=None):
 if make_train:
     rfcnCVfold2 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold2.txt",\
                         delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1']) 
-    rfcnCVfold1 = pd.read_csv("../coords/comp4_30K_det_trainval_seals.txt",\
+    rfcnCVfold1 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold1.txt",\
                         delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1']) 
     rfcnCVfold1['img'] = rfcnCVfold1['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
     rfcnCV = pd.concat([rfcnCVfold2, rfcnCVfold1])
@@ -90,7 +90,7 @@ if make_train:
     
     # Get the ground truth labels
     coords = pd.read_csv("../feat/coords_meta.csv")
-    train_meta = pd.read_csv("train_meta.csv", usecols = ['id', 'height', 'width', 'all_diff'])#,\
+    train_meta = pd.read_csv("../feat/train_meta.csv", usecols = ['id', 'height', 'width', 'all_diff'])#,\
     train_meta.columns = ['id', 'img_height', 'img_width', 'all_diff']
     coords = pd.merge(coords, train_meta, on='id', how='inner')
     coords['block_width'] = coords['width'].apply(lambda x: x*img_w).div(coords['img_width'], axis=0).apply(int)%block_size
