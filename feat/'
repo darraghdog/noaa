@@ -20,11 +20,11 @@ from tqdm import tqdm, tqdm_pandas
 tqdm_pandas(tqdm())
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
-#os.chdir('/home/darragh/Dropbox/noaa/feat')
+os.chdir('/home/darragh/Dropbox/noaa/feat')
 boundaries = [100,80,70,70,40]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 make_train = False
-make_test = True
+make_test = False
 validate_train = False
 validate_test = False
 cutoff = 0.7
