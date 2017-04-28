@@ -177,3 +177,95 @@ Error allocating 3288334336 bytes of device memory (out of memory). Driver repor
 [I 19:52:11.514 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
 [I 19:53:15.839 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
 [I 19:53:53.389 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
+[I 19:54:31.794 NotebookApp] Copying scripts/vgg16TestPred2604.ipynb to /scripts
+[I 19:54:33.484 NotebookApp] Kernel started: 08e02e0d-5b8e-47a6-af30-fe1b0c9738c6
+[I 19:56:59.887 NotebookApp] Kernel restarted: 08e02e0d-5b8e-47a6-af30-fe1b0c9738c6
+[W 19:56:59.889 NotebookApp] zmq message arrived on closed channel
+[I 19:57:59.998 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 19:58:33.519 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:00:33.505 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:00:39.289 NotebookApp] Kernel restarted: 08e02e0d-5b8e-47a6-af30-fe1b0c9738c6
+[I 20:01:37.086 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:02:34.072 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:03:07.858 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:04:33.545 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:06:33.535 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:07:36.406 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:08:34.013 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:09:01.793 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:09:08.256 NotebookApp] Kernel restarted: 08e02e0d-5b8e-47a6-af30-fe1b0c9738c6
+[I 20:10:33.505 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:12:20.881 NotebookApp] Kernel restarted: 08e02e0d-5b8e-47a6-af30-fe1b0c9738c6
+[I 20:12:33.981 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 20:14:33.977 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+Error allocating 396492800 bytes of device memory (out of memory). Driver report 112721920 bytes free and 11995578368 bytes total 
+[I 20:20:34.001 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[W 20:29:37.834 NotebookApp] 404 GET http://www.baidu.com/cache/global/img/gs.gif (93.174.93.136) 1.41ms referer=None
+[I 20:35:46.629 NotebookApp] Kernel restarted: 08e02e0d-5b8e-47a6-af30-fe1b0c9738c6
+[I 20:36:33.479 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+Error allocating 51380224 bytes of device memory (out of memory). Driver report 37093376 bytes free and 11995578368 bytes total 
+[I 20:43:41.263 NotebookApp] Kernel restarted: 08e02e0d-5b8e-47a6-af30-fe1b0c9738c6
+[I 20:44:33.964 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[W 21:15:24.923 NotebookApp] 404 GET http://httpheader.net/ (89.248.172.90) 1.87ms referer=None
+[I 23:02:33.389 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[W 02:10:22.483 NotebookApp] 404 GET http://testp3.pospr.waw.pl/testproxy.php (91.196.50.33) 1.95ms referer=None
+[I 05:28:33.085 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 12:59:42.008 NotebookApp] 302 GET / (71.6.165.200) 0.58ms
+[I 12:59:42.316 NotebookApp] 302 GET /tree (71.6.165.200) 0.95ms
+[I 14:02:33.190 NotebookApp] Saving file at /scripts/resnet50TestPred2604.ipynb
+[I 21:32:06.955 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 21:32:07.440 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 21:32:11.313 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 21:32:12.123 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 21:32:12.123 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 21:32:12.127 NotebookApp] [nb_conda] enabled
+[I 21:32:14.148 NotebookApp] [nb_anacondacloud] enabled
+[I 21:32:14.153 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 21:32:14.153 NotebookApp] 0 active kernels 
+[I 21:32:14.153 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 21:32:14.153 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 21:33:17.432 NotebookApp] 302 GET / (176.61.36.2) 0.64ms
+[I 21:33:17.451 NotebookApp] 302 GET /tree (176.61.36.2) 0.79ms
+[I 21:33:23.038 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 0.87ms
+[W 21:33:35.842 NotebookApp] Notebook scripts/vgg16CVPred2604.ipynb is not trusted
+[I 21:33:43.369 NotebookApp] Kernel started: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 21:35:36.011 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[W 21:35:36.011 NotebookApp] Saving untrusted notebook scripts/vgg16CVPred2604.ipynb
+[I 21:35:46.158 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[W 21:35:46.159 NotebookApp] Saving untrusted notebook scripts/vgg16CVPred2604.ipynb
+[I 21:37:36.009 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:38:00.269 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:40:41.827 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:53:36.062 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:54:41.756 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:54:48.720 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[W 21:54:48.722 NotebookApp] zmq message arrived on closed channel
+[I 21:55:24.939 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:55:55.614 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:57:36.039 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:57:47.218 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 21:59:35.995 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:05:36.188 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:06:14.406 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:06:23.486 NotebookApp] Kernel interrupted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:07:30.571 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:07:35.995 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:09:22.831 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:09:35.992 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:11:17.259 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:11:35.991 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:19:36.039 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:19:59.800 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:21:24.227 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:21:36.280 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:24:58.526 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:25:13.424 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:25:35.977 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:25:53.381 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:26:52.747 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:26:58.588 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:27:35.971 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:28:18.640 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:28:49.254 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 22:28:53.251 NotebookApp] Kernel restarted: b209d994-51e2-4667-9f17-d5ff08ad49a8
+[I 22:29:35.976 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
