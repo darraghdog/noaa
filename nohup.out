@@ -1,0 +1,179 @@
+[I 20:47:36.634 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 20:47:36.638 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 20:47:40.167 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 20:47:40.870 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 20:47:40.870 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 20:47:40.874 NotebookApp] [nb_conda] enabled
+[I 20:47:42.680 NotebookApp] [nb_anacondacloud] enabled
+[I 20:47:42.683 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 20:47:42.683 NotebookApp] 0 active kernels 
+[I 20:47:42.683 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 20:47:42.683 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 21:07:09.208 NotebookApp] 302 GET / (176.61.36.2) 0.59ms
+[I 21:07:09.225 NotebookApp] 302 GET /tree (176.61.36.2) 0.81ms
+[I 21:07:15.521 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 0.86ms
+[W 21:07:41.189 NotebookApp] 404 GET /favicon.ico (176.61.36.2) 19.85ms referer=http://ec2-52-31-210-187.eu-west-1.compute.amazonaws.com:8888/files/darknet/seals/JPEGImages/0_03.jpg
+[W 21:55:00.347 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.27ms referer=None
+[W 22:53:57.567 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.64ms referer=None
+[W 23:42:50.454 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.57ms referer=None
+[W 00:44:36.860 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.11ms referer=None
+[W 01:32:17.154 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.39ms referer=None
+[I 04:30:53.537 NotebookApp] 302 GET / (196.52.43.60) 0.50ms
+[W 05:33:49.441 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.15ms referer=None
+[W 05:46:19.850 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.57ms referer=None
+[W 05:59:00.221 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.14ms referer=None
+[W 06:24:08.282 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.47ms referer=None
+[W 06:49:15.951 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.11ms referer=None
+[W 07:01:50.819 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.13ms referer=None
+[W 08:05:28.524 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.191) 1.11ms referer=None
+[W 08:31:31.618 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.56ms referer=None
+[W 08:44:17.381 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.63ms referer=None
+[W 08:56:54.748 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.07ms referer=None
+[W 09:10:29.140 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.10ms referer=None
+[W 09:48:53.621 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.191) 1.65ms referer=None
+[W 10:01:32.325 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.65ms referer=None
+[W 10:14:04.976 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.10ms referer=None
+[W 12:13:24.536 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 2.08ms referer=None
+[W 12:40:01.311 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.09ms referer=None
+[W 13:06:37.433 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.191) 1.72ms referer=None
+[W 13:32:59.149 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.67ms referer=None
+[W 13:46:19.194 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.60ms referer=None
+[W 14:15:17.434 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.11ms referer=None
+[W 15:08:06.388 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (180.97.215.92) 1.45ms referer=None
+[W 16:02:07.861 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.68ms referer=None
+[W 16:29:28.706 NotebookApp] 404 GET http://60.173.26.241:61254/8888 (123.249.27.192) 1.69ms referer=None
+[I 18:39:24.794 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 18:39:24.902 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 18:39:27.762 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 18:39:28.371 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 18:39:28.372 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 18:39:28.376 NotebookApp] [nb_conda] enabled
+[I 18:39:30.734 NotebookApp] [nb_anacondacloud] enabled
+[I 18:39:30.939 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 18:39:30.939 NotebookApp] 0 active kernels 
+[I 18:39:30.939 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 18:39:30.940 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 18:39:33.077 NotebookApp] 302 GET / (176.61.36.2) 0.85ms
+[I 18:39:33.105 NotebookApp] 302 GET /tree (176.61.36.2) 1.09ms
+[I 18:39:43.955 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 1.01ms
+[I 18:41:04.391 NotebookApp] Copying scripts/vgg16.ipynb to /scripts
+[W 18:41:11.918 NotebookApp] delete /scripts/vgg16-Copy1.ipynb
+[I 18:41:17.082 NotebookApp] Kernel started: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 18:43:17.201 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:44:48.897 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:45:17.048 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:48:01.622 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:49:17.033 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:50:42.553 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 18:50:56.248 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:51:09.493 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:51:13.835 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:51:18.782 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 18:53:17.197 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:55:17.025 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:56:35.103 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 18:56:44.605 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[W 18:56:44.608 NotebookApp] zmq message arrived on closed channel
+[I 18:57:17.184 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:59:17.195 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:00:04.693 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:01:17.220 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:04:23.954 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:05:17.016 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:05:22.883 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:05:27.983 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:07:17.008 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:09:16.019 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:11:17.021 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:12:01.405 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:13:17.160 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:14:38.148 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:15:04.258 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:15:17.028 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:15:20.037 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:15:28.394 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:16:25.386 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:16:34.059 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:17:17.039 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:17:36.047 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:17:42.578 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+Error allocating 3288334336 bytes of device memory (out of memory). Driver report 2078670848 bytes free and 11995578368 bytes total 
+[I 19:19:06.699 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:19:17.150 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:19:51.412 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:19:57.567 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:20:27.053 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[W 19:20:27.057 NotebookApp] zmq message arrived on closed channel
+[I 19:21:16.998 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:21:39.008 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+Error allocating 3288334336 bytes of device memory (out of memory). Driver report 2373451776 bytes free and 11995578368 bytes total 
+[I 19:23:17.006 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:23:29.582 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[W 19:23:29.586 NotebookApp] zmq message arrived on closed channel
+[I 19:23:45.004 NotebookApp] Kernel started: 91099a51-9edf-4709-bac3-42781d2f5470
+[I 19:25:16.999 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:28:16.074 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:28:29.249 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:29:17.173 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:37:50.410 NotebookApp] Kernel interrupted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:38:15.493 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:38:21.824 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 19:39:16.981 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:53:16.996 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:01:16.988 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:03:16.976 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:05:17.026 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:05:59.409 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:06:32.349 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:07:16.962 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:07:44.287 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:11:07.474 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:11:16.975 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:12:07.435 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:13:16.973 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:13:32.305 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:19:16.964 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:20:58.668 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:27:16.972 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:49:16.941 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:51:16.941 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:51:21.251 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:53:16.933 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:54:30.961 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:55:16.927 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 20:56:52.123 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:07:16.936 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:15:16.952 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:17:16.925 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:19:16.914 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:21:17.063 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:23:16.917 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:24:14.505 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:24:56.041 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:25:02.072 NotebookApp] Kernel restarted: 8dd5965f-e5eb-43f4-8bba-29f6c9d41310
+[I 21:25:14.010 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 21:27:17.067 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 23:47:16.969 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[W 00:43:03.813 NotebookApp] 404 GET http://testp3.pospr.waw.pl/testproxy.php (185.25.148.240) 8.66ms referer=None
+[I 03:15:16.813 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 06:45:16.537 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[W 11:59:34.335 NotebookApp] 404 GET http://www.baidu.com/favicon.ico (43.241.222.224) 1.33ms referer=None
+[W 13:23:41.990 NotebookApp] 404 GET http://testp3.pospr.waw.pl/testproxy.php (91.196.50.33) 1.35ms referer=None
+[I 18:17:15.966 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:25:15.934 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:27:15.912 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:29:15.920 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:33:15.908 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:35:15.956 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:55:16.087 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:55:55.621 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:57:15.892 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 18:59:15.892 NotebookApp] Saving file at /scripts/vgg16.ipynb
+[I 19:01:15.885 NotebookApp] Saving file at /scripts/vgg16TtestPred2604.ipynb
+[I 19:03:15.880 NotebookApp] Saving file at /scripts/vgg16TtestPred2604.ipynb
+[I 19:49:15.841 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
+[I 19:51:16.005 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
+[I 19:52:04.992 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
+[I 19:52:11.514 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
+[I 19:53:15.839 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
+[I 19:53:53.389 NotebookApp] Saving file at /scripts/vgg16TestPred2604.ipynb
