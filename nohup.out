@@ -290,3 +290,62 @@ Error allocating 51380224 bytes of device memory (out of memory). Driver report 
 [I 08:21:32.762 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
 [I 08:21:37.878 NotebookApp] Kernel interrupted: b209d994-51e2-4667-9f17-d5ff08ad49a8
 [I 08:22:08.586 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 08:24:54.570 NotebookApp] Kernel started: 061e403b-1d90-409b-bd11-a28f0f7a4f53
+[I 08:25:02.900 NotebookApp] Kernel started: 0c3d295a-ead6-4b85-8306-611e775d7456
+[I 08:25:30.014 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:26:54.592 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:27:07.201 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:27:31.443 NotebookApp] Saving file at /scripts/vgg16CVPred2604.ipynb
+[I 08:27:57.772 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:29:10.301 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:30:44.841 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:30:57.139 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:39:26.466 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 08:39:26.572 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 08:39:29.338 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 08:39:29.896 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 08:39:29.896 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 08:39:29.901 NotebookApp] [nb_conda] enabled
+[I 08:39:31.523 NotebookApp] [nb_anacondacloud] enabled
+[I 08:39:31.689 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 08:39:31.689 NotebookApp] 0 active kernels 
+[I 08:39:31.690 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 08:39:31.690 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 08:39:56.716 NotebookApp] 302 GET / (176.61.36.2) 0.88ms
+[I 08:39:56.736 NotebookApp] 302 GET /tree (176.61.36.2) 0.82ms
+[I 08:40:01.531 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 1.06ms
+[I 08:40:42.762 NotebookApp] Kernel started: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 08:40:50.003 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[W 08:40:50.006 NotebookApp] zmq message arrived on closed channel
+[I 08:42:43.232 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:50:15.274 NotebookApp] Saving file at /scripts/cnnmodels.py
+[I 08:50:30.643 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 08:50:42.744 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:58:47.159 NotebookApp] Kernel interrupted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 08:59:43.711 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 08:59:48.904 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 09:00:43.221 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+Error allocating 396492800 bytes of device memory (out of memory). Driver report 116129792 bytes free and 11995578368 bytes total 
+[I 09:08:42.765 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:09:09.584 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:09:15.439 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 09:10:42.737 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:16:08.726 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+Error allocating 396492800 bytes of device memory (out of memory). Driver report 116129792 bytes free and 11995578368 bytes total 
+[I 09:18:43.227 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:24:50.027 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:24:55.717 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 09:26:42.728 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+Error allocating 396492800 bytes of device memory (out of memory). Driver report 116129792 bytes free and 11995578368 bytes total 
+[I 09:34:42.753 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:35:12.653 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 09:35:43.705 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 09:36:42.729 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+Error allocating 396492800 bytes of device memory (out of memory). Driver report 116129792 bytes free and 11995578368 bytes total 
+[I 09:44:42.754 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:44:48.740 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:46:23.114 NotebookApp] Saving file at /scripts/cnnmodels.py
+[I 09:46:42.735 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:48:14.076 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
+[I 09:48:22.079 NotebookApp] Kernel restarted: 929ff5e5-9c55-44ff-a35a-f548d2373adb
+[I 09:48:44.553 NotebookApp] Saving file at /scripts/resnet50CVPred2604.ipynb
