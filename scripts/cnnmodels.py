@@ -77,6 +77,27 @@ def train_generator(datagen, df):
             i += 1
         yield (batch_x.transpose(0, 3, 1, 2), batch_y)
 
+def trainb_generator(datagen, df, BATCHSIZE):
+    while 1:
+        batch_x = np.zeros((BATCHSIZE, ROWS, COLS, 3), dtype=K.floatx())
+        batch_y = np.zeros((BATCHSIZE, len(SEAL_CLASSES)), dtype=K.floatx())
+        fn = lambda obj: obj.loc[np.random.choice(obj.index, size=nb_perClass, replace=False),:]
+        batch_df = df.groupby(['seal'], as_index=True).apply(fn)
+        i = 0
+        for index,row in batch_df.iterrows():
+            row = row.tolist()
+            image_file = os.path.join(TRAIN_DIR, row[0])
+            seal = row[6]
+            bbox = row[2:6]
+            cropped = load_img(image_file+'.jpg',bbox,target_size=(ROWS,COLS))
+            x = np.asarray(cropped, dtype=K.floatx())
+            x = datagen.random_transform(x)
+            x = preprocess_input(x)
+            batch_x[i] = x
+            batch_y[i,seal] = 1
+            i += 1
+        yield (batch_x.transpose(0, 3, 1, 2), batch_y)
+
 def test_generator(df, datagen = None, batch_size = BATCHSIZE):
     n = df.shape[0]
     batch_index = 0
@@ -105,7 +126,33 @@ def test_generator(df, datagen = None, batch_size = BATCHSIZE):
         #return(batch_x.transpose(0, 3, 1, 2))
         yield(batch_x.transpose(0, 3, 1, 2))
         
-
+def testcv_generator(df, datagen = None, batch_size = BATCHSIZE):
+    n = df.shape[0]
+    batch_index = 0
+    while 1:
+        current_index = batch_index * batch_size
+        if n >= current_index + batch_size:
+            current_batch_size = batch_size
+            batch_index += 1    
+        else:
+            current_batch_size = n - current_index
+            batch_index = 0        
+        batch_df = df[current_index:current_index+current_batch_size]
+        batch_x = np.zeros((batch_df.shape[0], ROWS, COLS, 3), dtype=K.floatx())
+        i = 0
+        for index,row in batch_df.iterrows():
+            row = row.tolist()
+            image_file = os.path.join(TRAIN_DIR, row[0]+'.jpg')
+            bbox = row[2:6]
+            cropped = load_img(image_file,bbox,target_size=(ROWS,COLS))
+            x = np.asarray(cropped, dtype=K.floatx())
+            if datagen is not None: x = datagen.random_transform(x)            
+            x = preprocess_input(x)
+            batch_x[i] = x
+            i += 1
+        if batch_index%50 == 0: print(batch_index)
+        #return(batch_x.transpose(0, 3, 1, 2))
+        yield(batch_x.transpose(0, 3, 1, 2))
 
 # VGG models
 def vgg_std16_model(img_rows, img_cols, channel=1, num_class=None):
