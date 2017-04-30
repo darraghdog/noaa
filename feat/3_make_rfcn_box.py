@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sat Apr  8 21:27:44 2017
+This was changed on May 1st to get out more images to send through a classifier
 
 @author: darragh
 """
@@ -20,7 +21,7 @@ from tqdm import tqdm, tqdm_pandas
 tqdm_pandas(tqdm())
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
-#os.chdir('/home/darragh/Dropbox/noaa/feat')
+os.chdir('/home/darragh/Dropbox/noaa/feat')
 boundaries = [100,80,70,70,40]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 make_train = False
@@ -74,20 +75,9 @@ def is_seal(row):
                 (coords['block_height']<(int(row['y1'])+check_border))).any()
     return int(seal)
 
+
 # Load the Xtrain files
 if make_train:
-    rfcnCVfold2 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold2.txt",\
-                        delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
-    rfcnCVfold1 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold1.txt",\
-                        delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
-    rfcnCVfold1['img'] = rfcnCVfold1['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
-    rfcnCV = pd.concat([rfcnCVfold2, rfcnCVfold1])
-    rfcnCV = rfcnCV[rfcnCV['proba']>cutoff]
-    rfcnCV = rfcnCV[(rfcnCV['x1']-rfcnCV['x0'])<150]
-    rfcnCV = rfcnCV[(rfcnCV['y1']-rfcnCV['y0'])<150]
-    del rfcnCVfold1, rfcnCVfold2
-    gc.collect()
-
     # Get the ground truth labels
     coords = pd.read_csv("../feat/coords_meta.csv")
     train_meta = pd.read_csv("../feat/train_meta.csv", usecols = ['id', 'height', 'width', 'all_diff'])#,\
@@ -98,49 +88,71 @@ if make_train:
     coords['block'] = coords['width'].apply(lambda x: x*img_w).div(coords['img_width'], axis=0).apply(int).apply(lambda x: x/block_size).apply(str)+\
                         coords['height'].apply(lambda x: x*img_h).div(coords['img_height'], axis=0).apply(int).apply(lambda x: x/block_size).apply(str)
 
-    rfcnCV['seal'] = rfcnCV.progress_apply(is_seal, axis=1)
-    rfcnCV = rfcnCV.reset_index(drop=True)
-    rfcnCV['h_diff'] = ROWS - (rfcnCV['y1'] -rfcnCV['y0'])
-    rfcnCV['w_diff'] = COLS - (rfcnCV['x1'] -rfcnCV['x0'])
-    rfcnCV[rfcnCV['h_diff']<0]['h_diff'] = 0
-    rfcnCV[rfcnCV['w_diff']<0]['w_diff'] = 0
-    rfcnCV['x0'] = rfcnCV['x0'] - rfcnCV['w_diff']/2
-    rfcnCV['x1'] = rfcnCV['x1'] + rfcnCV['w_diff']/2
-    rfcnCV['y0'] = rfcnCV['y0'] - rfcnCV['h_diff']/2
-    rfcnCV['y1'] = rfcnCV['y1'] + rfcnCV['h_diff']/2
-    rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].add(np.where(rfcnCV['x0']<0, rfcnCV['x0'].abs(), 0), axis = 0 )
-    rfcnCV[['y0', 'y1']] = rfcnCV[['y0', 'y1']].add(np.where(rfcnCV['y0']<0, rfcnCV['y0'].abs(), 0), axis = 0 )
-    rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].subtract(np.where(rfcnCV['x1']>block_size, (rfcnCV['x1']-block_size).abs(), 0), axis = 0 )
-    rfcnCV[['y0', 'y1']] = rfcnCV[['y0', 'y1']].subtract(np.where(rfcnCV['y1']>block_size, (rfcnCV['y1']-block_size).abs(), 0), axis = 0 )
-    rfcnCV.drop(['h_diff', 'w_diff'], axis=1, inplace=True)
-    rfcnCV.to_pickle('../coords/rfcnCV.pkl')
+    def make_CV_boxes(cutoff1, file_name):
+        rfcnCVfold2 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold2.txt",\
+                            delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+        rfcnCVfold1 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold1.txt",\
+                            delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+        rfcnCVfold1['img'] = rfcnCVfold1['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
+        rfcnCV = pd.concat([rfcnCVfold2, rfcnCVfold1])
+        rfcnCV = rfcnCV[rfcnCV['proba']>cutoff1]
+        rfcnCV = rfcnCV[(rfcnCV['x1']-rfcnCV['x0'])<150]
+        rfcnCV = rfcnCV[(rfcnCV['y1']-rfcnCV['y0'])<150]
+        del rfcnCVfold1, rfcnCVfold2
+        gc.collect()
+    
+        
+        rfcnCV['seal'] = rfcnCV.progress_apply(is_seal, axis=1)
+        rfcnCV = rfcnCV.reset_index(drop=True)
+        rfcnCV['h_diff'] = ROWS - (rfcnCV['y1'] -rfcnCV['y0'])
+        rfcnCV['w_diff'] = COLS - (rfcnCV['x1'] -rfcnCV['x0'])
+        rfcnCV[rfcnCV['h_diff']<0]['h_diff'] = 0
+        rfcnCV[rfcnCV['w_diff']<0]['w_diff'] = 0
+        rfcnCV['x0'] = rfcnCV['x0'] - rfcnCV['w_diff']/2
+        rfcnCV['x1'] = rfcnCV['x1'] + rfcnCV['w_diff']/2
+        rfcnCV['y0'] = rfcnCV['y0'] - rfcnCV['h_diff']/2
+        rfcnCV['y1'] = rfcnCV['y1'] + rfcnCV['h_diff']/2
+        rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].add(np.where(rfcnCV['x0']<0, rfcnCV['x0'].abs(), 0), axis = 0 )
+        rfcnCV[['y0', 'y1']] = rfcnCV[['y0', 'y1']].add(np.where(rfcnCV['y0']<0, rfcnCV['y0'].abs(), 0), axis = 0 )
+        rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].subtract(np.where(rfcnCV['x1']>block_size, (rfcnCV['x1']-block_size).abs(), 0), axis = 0 )
+        rfcnCV[['y0', 'y1']] = rfcnCV[['y0', 'y1']].subtract(np.where(rfcnCV['y1']>block_size, (rfcnCV['y1']-block_size).abs(), 0), axis = 0 )
+        rfcnCV.drop(['h_diff', 'w_diff'], axis=1, inplace=True)
+        #rfcnCV.to_pickle('../coords/rfcnCV.pkl')
+        rfcnCV.to_pickle(file_name)
+        return rfcnCV
+    rfcnCV = make_CV_boxes(cutoff, '../coords/rfcnCV.pkl')
+    rfcnCVlo06 = make_CV_boxes(0.6, '../coords/rfcnCVlo06.pkl')
 else:
-    rfcnCV = pd.read_pickle('../coords/rfcnCV.pkl')
+    rfcnCV = pd.read_pickle('../coords/rfcnCV.pkl' )
 
 # Load the Xtrain files
 if make_test:
-    rfcnTst = pd.read_csv("../coords/comp4_30000_det_test_all_seals_subset.txt", skiprows=1, \
-                        delimiter = ",", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
-    rfcnTst['img'] = rfcnTst['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesTest/', '')
-    rfcnTst = rfcnTst[rfcnTst['proba']>cutoff]
-    rfcnTst = rfcnTst[(rfcnTst['x1']-rfcnTst['x0'])<150]
-    rfcnTst = rfcnTst[(rfcnTst['y1']-rfcnTst['y0'])<150]
-    gc.collect()
-    rfcnTst = rfcnTst.reset_index(drop=True)
-    rfcnTst['h_diff'] = ROWS - (rfcnTst['y1'] -rfcnTst['y0'])
-    rfcnTst['w_diff'] = COLS - (rfcnTst['x1'] -rfcnTst['x0'])
-    rfcnTst[rfcnTst['h_diff']<0]['h_diff'] = 0
-    rfcnTst[rfcnTst['w_diff']<0]['w_diff'] = 0
-    rfcnTst['x0'] = rfcnTst['x0'] - rfcnTst['w_diff']/2
-    rfcnTst['x1'] = rfcnTst['x1'] + rfcnTst['w_diff']/2
-    rfcnTst['y0'] = rfcnTst['y0'] - rfcnTst['h_diff']/2
-    rfcnTst['y1'] = rfcnTst['y1'] + rfcnTst['h_diff']/2
-    rfcnTst[['x0', 'x1']] = rfcnTst[['x0', 'x1']].add(np.where(rfcnTst['x0']<0, rfcnTst['x0'].abs(), 0), axis = 0 )
-    rfcnTst[['y0', 'y1']] = rfcnTst[['y0', 'y1']].add(np.where(rfcnTst['y0']<0, rfcnTst['y0'].abs(), 0), axis = 0 )
-    rfcnTst[['x0', 'x1']] = rfcnTst[['x0', 'x1']].subtract(np.where(rfcnTst['x1']>block_size, (rfcnTst['x1']-block_size).abs(), 0), axis = 0 )
-    rfcnTst[['y0', 'y1']] = rfcnTst[['y0', 'y1']].subtract(np.where(rfcnTst['y1']>block_size, (rfcnTst['y1']-block_size).abs(), 0), axis = 0 )
-    rfcnTst.drop(['h_diff', 'w_diff'], axis=1, inplace=True)
-    rfcnTst.to_pickle('../coords/rfcnTst.pkl')
+    def make_Tst_boxes(cutoff1, file_name):
+        rfcnTst = pd.read_csv("../coords/comp4_30000_det_test_all_seals_subset.txt", skiprows=1, \
+                            delimiter = ",", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+        rfcnTst['img'] = rfcnTst['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesTest/', '')
+        rfcnTst = rfcnTst[rfcnTst['proba']>cutoff1]
+        rfcnTst = rfcnTst[(rfcnTst['x1']-rfcnTst['x0'])<150]
+        rfcnTst = rfcnTst[(rfcnTst['y1']-rfcnTst['y0'])<150]
+        gc.collect()
+        rfcnTst = rfcnTst.reset_index(drop=True)
+        rfcnTst['h_diff'] = ROWS - (rfcnTst['y1'] -rfcnTst['y0'])
+        rfcnTst['w_diff'] = COLS - (rfcnTst['x1'] -rfcnTst['x0'])
+        rfcnTst[rfcnTst['h_diff']<0]['h_diff'] = 0
+        rfcnTst[rfcnTst['w_diff']<0]['w_diff'] = 0
+        rfcnTst['x0'] = rfcnTst['x0'] - rfcnTst['w_diff']/2
+        rfcnTst['x1'] = rfcnTst['x1'] + rfcnTst['w_diff']/2
+        rfcnTst['y0'] = rfcnTst['y0'] - rfcnTst['h_diff']/2
+        rfcnTst['y1'] = rfcnTst['y1'] + rfcnTst['h_diff']/2
+        rfcnTst[['x0', 'x1']] = rfcnTst[['x0', 'x1']].add(np.where(rfcnTst['x0']<0, rfcnTst['x0'].abs(), 0), axis = 0 )
+        rfcnTst[['y0', 'y1']] = rfcnTst[['y0', 'y1']].add(np.where(rfcnTst['y0']<0, rfcnTst['y0'].abs(), 0), axis = 0 )
+        rfcnTst[['x0', 'x1']] = rfcnTst[['x0', 'x1']].subtract(np.where(rfcnTst['x1']>block_size, (rfcnTst['x1']-block_size).abs(), 0), axis = 0 )
+        rfcnTst[['y0', 'y1']] = rfcnTst[['y0', 'y1']].subtract(np.where(rfcnTst['y1']>block_size, (rfcnTst['y1']-block_size).abs(), 0), axis = 0 )
+        rfcnTst.drop(['h_diff', 'w_diff'], axis=1, inplace=True)
+        #rfcnTst.to_pickle('../coords/rfcnTst.pkl')
+        return rfcnTst
+    rfcnTst = make_Tst_boxes(cutoff, '../coords/rfcnTst.pkl')
+    rfcnTstlo04 = make_Tst_boxes(0.6, '../coords/rfcnTstlo06.pkl')
 else:
     rfcnTst = pd.read_pickle('../coords/rfcnTst.pkl')
  

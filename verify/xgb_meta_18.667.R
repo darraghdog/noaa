@@ -32,20 +32,8 @@ bad_train_ids = c(
   913, 927, 946)
 
 # Load up training and test files
-meta_trn1 <- fread("train_meta1.csv")[,-1,with=F]
-meta_tst1 <- fread("test_meta1.csv")[,-1,with=F]
-meta_trn2 <- fread("train_meta2.csv")[,1:3,with=F]
-meta_tst2 <- fread("test_meta2.csv")[,1:3,with=F]
-names(meta_trn2)[1] = names(meta_tst2)[1] = "id"
-meta_trn = merge(meta_trn1, meta_trn2, all=T,by="id")
-meta_tst = merge(meta_tst1, meta_tst2, all=T,by="id")
-
-meta_trn[["sealCoverage"]] = meta_trn[["sealCoverage"]]/(1-meta_trn[["mask_size"]])
-meta_trn[["sealOverlap2"]] = meta_trn[["sealOverlap2"]]/(1-meta_trn[["mask_size"]])
-meta_tst[["sealCoverage"]] = meta_tst[["sealCoverage"]]/(1-meta_tst[["mask_size"]])
-meta_tst[["sealOverlap2"]] = meta_tst[["sealOverlap2"]]/(1-meta_tst[["mask_size"]])
-rm(meta_tst1, meta_tst2, meta_trn1, meta_trn2)
-
+meta_trn <- fread("train_meta1.csv")[,-1,with=F]
+meta_tst <- fread("test_meta1.csv")[,-1,with=F]
 target_cols = names(meta_trn)[2:6]
 resnfile = c(paste0("resnet50CVPreds2604_fold", 1:2, ".csv"))
 vggfile = c(paste0("vggCVPreds2604_fold", 1:2, ".csv"))
@@ -66,18 +54,12 @@ resn50bigtst = getBreaks(resn50tst, c(seq(.2,.8,.2), .9, .95), "resn50")
 
 ct_trn = merge(resn50bigtrn, vggbigtrn, all = T, by = "img") 
 ct_tst = merge(resn50bigtst, vggbigtst, all = T, by = "img") 
-rm(vggtrn, vggbigtrn, resn50trn, resn50bigtrn)
-rm(vggtst, vggbigtst, resn50tst, resn50bigtst)
-gc();gc();gc();gc();gc();gc()
 
 # Create training and test sets
 names(meta_tst)[1] = names(meta_trn)[1]  = "img"
 Xtrn = merge(meta_trn, ct_trn, all = T, by = "img")
 Xtrn = Xtrn[!Xtrn$img %in% bad_train_ids]
 Xtst = merge(meta_tst, ct_tst, all = T, by = "img")
-
-
-
 Xtrn[is.na(Xtrn)] <- 0
 Xtst[is.na(Xtst)] <- 0
 Ytrn = Xtrn[,target_cols, with=F]
@@ -99,14 +81,14 @@ for( var in target_cols){
                     eta = 0.1,
                     nrounds = 400,
                     verbose = 0,
-                    colsample_bytree = 0.4,
+                    colsample_bytree = 0.7,
                     max_depth = 4,
                     objective = 'reg:linear',
                     eval_metric = 'rmse')
     result_tmp[!fold] = pmax(0, round(predict(model, Xtrn[!fold,])))
   }
   print(paste0("Results for: ", var))
-  print(xgb.importance(model, feature_names = colnames(Xtrn))[1:8,])
+  #print(xgb.importance(model, feature_names = colnames(Xtrn))[1:8,])
   result = c(result, rmse(y, result_tmp))
   print(result[length(result)])
   print("")
@@ -134,13 +116,13 @@ for( var in target_cols){
   y = Ytrn[[var]]
   train.xgb <- xgb.DMatrix(Xtrn, label = y)
   model <- xgb.train(data = train.xgb,
-                     eta = 0.1,
-                     nrounds = 400,
-                     verbose = 0,
-                     colsample_bytree = 0.4,
-                     max_depth = 4,
-                     objective = 'reg:linear',
-                     eval_metric = 'rmse')
+                       eta = 0.1,
+                       nrounds = 400,
+                       verbose = 0,
+                       colsample_bytree = 0.7,
+                       max_depth = 4,
+                       objective = 'reg:linear',
+                       eval_metric = 'rmse')
   subDt[[var]] = pmax(0, round(predict(model, Xtst)))
   }
 
@@ -154,7 +136,7 @@ sub_out
 sub_ct
 subDt
 
-write.csv(sub_out, paste0("../sub/sub-xgbB-ct-", Sys.Date(), ".csv"), row.names = F)
+write.csv(sub_out, paste0("../sub/sub-xgbA-ct-", Sys.Date(), ".csv"), row.names = F)
 
 
   

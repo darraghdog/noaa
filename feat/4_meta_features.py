@@ -4,6 +4,7 @@ import pandas as pd
 import random
 from tqdm import tqdm
 import xgboost as xgb
+import gc
 
 import scipy
 from sklearn.metrics import fbeta_score
@@ -126,24 +127,31 @@ resn50CV = resn50CV[resn50CV['predSeal']>0.5].reset_index(drop=True)
 resn50Tst = resn50Tst[resn50Tst['predSeal']>0.5].reset_index(drop=True)
 resn50CV['bigimg'] = resn50CV['img'].apply(lambda x: int(x.split('_')[0]))
 resn50Tst['bigimg'] = resn50Tst['img'].apply(lambda x: int(x.split('_')[0]))
-
+keep_cols = ['img', 'x0', 'y0', 'x1', 'y1']
+resn50CV = resn50CV[keep_cols]
+resn50Tst = resn50Tst[keep_cols]
+gc.collect()
 
 # Function to get area of coverage and overlap of seals
 def getOverlap(preddf):
-    imgs = preddf.img.unique().tolist()
+    preddf = preddf.sort('img')
+    imgs = []
     coverage = []
     overlap2 = []
     overlap3 = []
-    for img in tqdm(imgs, miniters=100):
-        df = preddf[preddf['img'] == img]
-        mat = np.zeros((544, 544))
-        for c, row in df.iterrows():
-            row_idx = np.array(range(int(row['x0']), int(row['x1'])))   
-            col_idx = np.array(range(int(row['y0']), int(row['y1'])))
-            mat[row_idx[:, None], col_idx] = mat[row_idx[:, None], col_idx] + 1
-        coverage.append(np.sum(mat>0))
-        overlap2.append(np.sum(mat>1))
-        overlap3.append(np.sum(mat>2))
+    imgprev = preddf.img.values[0]
+    mat = np.zeros((544, 544))
+    for c, row in tqdm(preddf.iterrows(), miniters=100):
+        if row['img'] != imgprev:
+            coverage.append(np.sum(mat>0))
+            overlap2.append(np.sum(mat>1))
+            overlap3.append(np.sum(mat>2))
+            imgs.append(row['img'])
+            mat = np.zeros((544, 544))
+            imgprev = row['img']
+        row_idx = np.array(range(int(row['x0']), int(row['x1'])))   
+        col_idx = np.array(range(int(row['y0']), int(row['y1'])))
+        mat[row_idx[:, None], col_idx] = mat[row_idx[:, None], col_idx] + 1
     sealCover = pd.DataFrame({'img': imgs, 'sealCoverage': coverage, 'sealOverlap2': overlap2, 'sealOverlap3': overlap3})
     sealCover['bigimg'] = sealCover['img'].apply(lambda x: int(x.split('_')[0]))
     sealCover.drop(['img'], axis=1, inplace=True)
@@ -151,14 +159,20 @@ def getOverlap(preddf):
     def divide_by_area(x):
         return x.divide(6*9*544*544).astype('float')
     sealCover = sealCover.apply(divide_by_area)
-    sealCover['sealOverlapProp2'] = sealCover['sealOverlap2']/sealCover['sealCoverage']
-    sealCover['sealOverlapProp3'] = sealCover['sealOverlap3']/sealCover['sealCoverage']
-    return sealCover
-    
+    gc.collect()
+    sealOverlapProp2 = []
+    sealOverlapProp3 = []
+    for c, row in tqdm(sealCover.iterrows(), miniters=100):
+        sealOverlapProp2.append(row['sealOverlap2']/row['sealCoverage'])
+        sealOverlapProp3.append(row['sealOverlap3']/row['sealCoverage'])
+    sealCover['sealOverlapProp2'] = sealOverlapProp2
+    sealCover['sealOverlapProp3'] = sealOverlapProp3
+    return sealCover    
+
 resn50CVOlap = getOverlap(resn50CV)
 resn50TstOlap = getOverlap(resn50Tst)
-resn50CVOlap.to_csv('../coords/train_meta2.csv', index = None)
-resn50TstOlap.to_csv('../coords/test_meta2.csv', index = None)
+resn50CVOlap.to_csv('../coords/train_meta2.csv', index=True)
+resn50TstOlap.to_csv('../coords/test_meta2.csv')
 
 resn50CVOlap.head()
 
