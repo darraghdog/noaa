@@ -97,8 +97,8 @@ for pup_img in tqdm(pup_coords.img.unique(), miniters=20):
             if ((pup_tmp['block_width'] >= (row['x0']+border)) & (pup_tmp['block_width'] <= (row['x1']-border)) & \
             (pup_tmp['block_height'] >= (row['y0']+border)) & (pup_tmp['block_height'] <= (row['y1']-border))).any():
                 resnet50_train.loc[c, 'with_pup'] = 1
-resnet50_train.with_pup.hist()
-resnet50_train.seal.hist()
+#resnet50_train.with_pup.hist()
+#resnet50_train.seal.hist()
 
 # Now lets output and see if we can predict if we have a pup or not. 
 resnet50_train.to_pickle('../coords/resnet_pups_trn.pkl')
@@ -178,6 +178,7 @@ train_datagen = ImageDataGenerator(
 CVsplit = resnet50_train.img.str.split('_').apply(lambda x: x[0]).astype(int) % 10 == 0
 train_df = resnet50_train[~CVsplit]
 valid_df = resnet50_train[CVsplit]
+test_df = resnet50_test
 
 # validation_data (valid_x,valid_y)
 df_1 = valid_df
