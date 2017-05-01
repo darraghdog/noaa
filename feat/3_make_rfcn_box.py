@@ -108,10 +108,10 @@ if make_train:
         rfcnCV['w_diff'] = COLS - (rfcnCV['x1'] -rfcnCV['x0'])
         rfcnCV[rfcnCV['h_diff']<0]['h_diff'] = 0
         rfcnCV[rfcnCV['w_diff']<0]['w_diff'] = 0
-        rfcnCV['x0'] = rfcnCV['x0'] - rfcnCV['w_diff']/2
-        rfcnCV['x1'] = rfcnCV['x1'] + rfcnCV['w_diff']/2
-        rfcnCV['y0'] = rfcnCV['y0'] - rfcnCV['h_diff']/2
-        rfcnCV['y1'] = rfcnCV['y1'] + rfcnCV['h_diff']/2
+        rfcnCV['x0'] = rfcnCV['x0'] - rfcnCV['w_diff'].divide(2)
+        rfcnCV['x1'] = rfcnCV['x1'] + rfcnCV['w_diff'].divide(2)
+        rfcnCV['y0'] = rfcnCV['y0'] - rfcnCV['h_diff'].divide(2)
+        rfcnCV['y1'] = rfcnCV['y1'] + rfcnCV['h_diff'].divide(2)
         rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].add(np.where(rfcnCV['x0']<0, rfcnCV['x0'].abs(), 0), axis = 0 )
         rfcnCV[['y0', 'y1']] = rfcnCV[['y0', 'y1']].add(np.where(rfcnCV['y0']<0, rfcnCV['y0'].abs(), 0), axis = 0 )
         rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].subtract(np.where(rfcnCV['x1']>block_size, (rfcnCV['x1']-block_size).abs(), 0), axis = 0 )
@@ -140,19 +140,19 @@ if make_test:
         rfcnTst['w_diff'] = COLS - (rfcnTst['x1'] -rfcnTst['x0'])
         rfcnTst[rfcnTst['h_diff']<0]['h_diff'] = 0
         rfcnTst[rfcnTst['w_diff']<0]['w_diff'] = 0
-        rfcnTst['x0'] = rfcnTst['x0'] - rfcnTst['w_diff']/2
-        rfcnTst['x1'] = rfcnTst['x1'] + rfcnTst['w_diff']/2
-        rfcnTst['y0'] = rfcnTst['y0'] - rfcnTst['h_diff']/2
-        rfcnTst['y1'] = rfcnTst['y1'] + rfcnTst['h_diff']/2
+        rfcnTst['x0'] = rfcnTst['x0'] - rfcnTst['w_diff'].divide(2)
+        rfcnTst['x1'] = rfcnTst['x1'] + rfcnTst['w_diff'].divide(2)
+        rfcnTst['y0'] = rfcnTst['y0'] - rfcnTst['h_diff'].divide(2)
+        rfcnTst['y1'] = rfcnTst['y1'] + rfcnTst['h_diff'].divide(2)
         rfcnTst[['x0', 'x1']] = rfcnTst[['x0', 'x1']].add(np.where(rfcnTst['x0']<0, rfcnTst['x0'].abs(), 0), axis = 0 )
         rfcnTst[['y0', 'y1']] = rfcnTst[['y0', 'y1']].add(np.where(rfcnTst['y0']<0, rfcnTst['y0'].abs(), 0), axis = 0 )
         rfcnTst[['x0', 'x1']] = rfcnTst[['x0', 'x1']].subtract(np.where(rfcnTst['x1']>block_size, (rfcnTst['x1']-block_size).abs(), 0), axis = 0 )
         rfcnTst[['y0', 'y1']] = rfcnTst[['y0', 'y1']].subtract(np.where(rfcnTst['y1']>block_size, (rfcnTst['y1']-block_size).abs(), 0), axis = 0 )
         rfcnTst.drop(['h_diff', 'w_diff'], axis=1, inplace=True)
-        #rfcnTst.to_pickle('../coords/rfcnTst.pkl')
+        rfcnTst.to_pickle(file_name)
         return rfcnTst
     rfcnTst = make_Tst_boxes(cutoff, '../coords/rfcnTst.pkl')
-    rfcnTstlo04 = make_Tst_boxes(0.6, '../coords/rfcnTstlo06.pkl')
+    rfcnTstlo06 = make_Tst_boxes(0.6, '../coords/rfcnTstlo06.pkl')
 else:
     rfcnTst = pd.read_pickle('../coords/rfcnTst.pkl')
  
@@ -160,14 +160,16 @@ else:
 
 # Lets validate the train file
 if validate_test:
-    cond = rfcnTst.img.str.contains('13835')
-    for img_name in rfcnTst[cond].img.unique():
-        img = imread('../data/JPEGImagesBlk/%s.jpg'%(img_name))
-        bbox = rfcnTst[rfcnTst['img'] == img_name]
+    cond = rfcnTstlo06.img.str.contains('11695')
+    for img_name in rfcnTstlo06[cond].img.unique():
+        img = imread('../data/JPEGImagesTest/%s.jpg'%(img_name))
+        bbox = rfcnTstlo06[rfcnTstlo06['img'] == img_name]
         bbox['w'] = bbox['x1'] - bbox['x0']
         bbox['h'] = bbox['y1'] - bbox['y0']
         plt.figure(figsize=(4,4))
         plt.imshow(img)
         for c, row in bbox.iterrows():
             plt.gca().add_patch(plt.Rectangle((row['x0'], row['y0']), row['w'],\
-            row['h'], color='red', fill=False, lw=1+(2*row['seal'])))
+            row['h'], color='red', fill=False, 
+            lw=2))
+            #lw=1+(2*row['seal'])))
