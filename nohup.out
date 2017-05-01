@@ -1,0 +1,32 @@
+[I 17:13:56.401 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 17:13:56.405 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 17:14:00.826 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 17:14:01.349 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 17:14:01.350 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 17:14:01.354 NotebookApp] [nb_conda] enabled
+[I 17:14:02.900 NotebookApp] [nb_anacondacloud] enabled
+[I 17:14:02.991 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 17:14:02.991 NotebookApp] 0 active kernels 
+[I 17:14:02.991 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 17:14:02.991 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 17:14:32.742 NotebookApp] 302 GET / (176.61.36.2) 0.76ms
+[I 17:14:32.763 NotebookApp] 302 GET /tree (176.61.36.2) 0.75ms
+[I 17:15:02.361 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 0.98ms
+[W 17:16:47.005 NotebookApp] Notebook scripts/resnet50TestPred_0.6_0105.ipynb is not trusted
+[W 17:17:16.542 NotebookApp] Notebook scripts/resnet50CVPred_0.6_0105.ipynb is not trusted
+[I 17:17:19.946 NotebookApp] Kernel started: 536081c5-e903-4d4f-a4a6-23b43a466a59
+[I 17:17:42.621 NotebookApp] Saving file at /scripts/resnet50TestPred_0.6_0105.ipynb
+[W 17:17:42.622 NotebookApp] Saving untrusted notebook scripts/resnet50TestPred_0.6_0105.ipynb
+[I 17:19:13.903 NotebookApp] Saving file at /scripts/resnet50CVPred_0.6_0105.ipynb
+[I 17:19:15.548 NotebookApp] Saving file at /scripts/resnet50CVPred_0.6_0105.ipynb
+[I 17:20:07.438 NotebookApp] Kernel shutdown: 536081c5-e903-4d4f-a4a6-23b43a466a59
+[I 17:20:10.779 NotebookApp] Kernel started: 7f884fb2-3284-440f-a98c-107946f7200c
+[I 17:20:20.012 NotebookApp] Kernel shutdown: 7f884fb2-3284-440f-a98c-107946f7200c
+[W 17:20:21.402 NotebookApp] Notebook scripts/resnet50TestPred_0.6_0105.ipynb is not trusted
+[I 17:20:26.029 NotebookApp] Kernel started: a8ed1ec7-b05f-455e-8757-0d93de86e874
+[I 17:20:46.335 NotebookApp] Kernel restarted: a8ed1ec7-b05f-455e-8757-0d93de86e874
+[I 17:20:55.391 NotebookApp] Kernel restarted: a8ed1ec7-b05f-455e-8757-0d93de86e874
+[W 17:20:55.394 NotebookApp] zmq message arrived on closed channel
+[I 17:22:22.116 NotebookApp] Saving file at /scripts/resnet50TestPred_0.6_0105.ipynb
+[I 17:24:22.133 NotebookApp] Saving file at /scripts/resnet50TestPred_0.6_0105.ipynb
+[I 17:26:22.128 NotebookApp] Saving file at /scripts/resnet50TestPred_0.6_0105.ipynb
