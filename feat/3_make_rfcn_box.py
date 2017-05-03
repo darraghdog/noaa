@@ -124,6 +124,7 @@ if make_train:
     rfcnCVlo06 = make_CV_boxes(0.6, '../coords/rfcnCVlo06.pkl')
 else:
     rfcnCV = pd.read_pickle('../coords/rfcnCV.pkl' )
+    rfcnCVlo06 = pd.read_pickle('../coords/rfcnCVlo06.pkl' )
 
 # Load the Xtrain files
 if make_test:
@@ -155,6 +156,7 @@ if make_test:
     rfcnTstlo06 = make_Tst_boxes(0.6, '../coords/rfcnTstlo06.pkl')
 else:
     rfcnTst = pd.read_pickle('../coords/rfcnTst.pkl')
+    rfcnTstlo06 = pd.read_pickle('../coords/rfcnTstlo06.pkl')
  
 
 

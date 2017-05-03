@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import random
 from tqdm import tqdm
-import xgboost as xgb
+#import xgboost as xgb
 from matplotlib import pyplot as plt
 import numpy as np
 import gc, math
@@ -30,6 +30,7 @@ from keras import backend as K
 from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
 
+from cnnmodels import identity_block, conv_block, resnet50_model
 from sklearn.metrics import log_loss, accuracy_score, confusion_matrix
 
 # Functions
@@ -63,13 +64,15 @@ channel = 3
 num_class = 2
 ROWS, COLS = 224, 224
 BATCHSIZE = 32
-PUP_CLASSES = ['NoP', 'pup']
+PUP_CLASSES = ['NoP', 'with_pup']
 nb_perClass = int(BATCHSIZE / len(PUP_CLASSES))
 TRAIN_DIR = '../darknet/seals/JPEGImagesBlk'
 TEST_DIR = '../darknet/seals/JPEGImagesTest'
+pup_pickle_create = True
+
 
 # Load resnet50 predicted seals
-os.chdir('/home/darragh/Dropbox/noaa/feat')
+#os.chdir('/home/darragh/Dropbox/noaa/feat')
 resnet50_train = pd.concat([pd.read_pickle('../coords/resnet50CVPreds2604_fold1.pkl'),
                        pd.read_pickle('../coords/resnet50CVPreds2604_fold2.pkl')],axis=0)
 resnet50_train = resnet50_train[resnet50_train['predSeal']>0.6].reset_index(drop=True)
@@ -86,23 +89,28 @@ block_coords['block'] = block_coords['block'].map(str).apply(lambda x: '{0:0>2}'
 block_coords['img'] = block_coords['id'].map(str) + '_' + block_coords['block'].map(str)
 pup_coords = block_coords[block_coords['class']==4][['img', 'block_width', 'block_height']].reset_index(drop=True)
 
-# Add to resnet50_train the images with a pup
-resnet50_train['with_pup'] = 0
-border = 5  # Make sure the pup is inside the image by 5 pixels
-for pup_img in tqdm(pup_coords.img.unique(), miniters=20):
-    if pup_img in resnet50_train.img.values:
-        resnet50_tmp = resnet50_train[resnet50_train['img'] == pup_img]
-        pup_tmp = pup_coords[pup_coords['img'] == pup_img]
-        for c, row in resnet50_tmp.iterrows():
-            if ((pup_tmp['block_width'] >= (row['x0']+border)) & (pup_tmp['block_width'] <= (row['x1']-border)) & \
-            (pup_tmp['block_height'] >= (row['y0']+border)) & (pup_tmp['block_height'] <= (row['y1']-border))).any():
-                resnet50_train.loc[c, 'with_pup'] = 1
-resnet50_train.with_pup.hist()
-resnet50_train.seal.hist()
 
-# Now lets output and see if we can predict if we have a pup or not. 
-resnet50_train.to_pickle('../coords/resnet_pups_trn.pkl')
-resnet50_test.to_pickle('../coords/resnet_pups_tst.pkl')
+if pup_pickle_create:
+	# Add to resnet50_train the images with a pup
+	resnet50_train['with_pup'] = 0
+	border = 0  # Make sure the pup is inside the image by 5 pixels
+	for pup_img in tqdm(pup_coords.img.unique(), miniters=20):
+	    if pup_img in resnet50_train.img.values:
+	        resnet50_tmp = resnet50_train[resnet50_train['img'] == pup_img]
+	        pup_tmp = pup_coords[pup_coords['img'] == pup_img]
+	        for c, row in resnet50_tmp.iterrows():
+	            if ((pup_tmp['block_width'] >= (row['x0']+border)) & (pup_tmp['block_width'] <= (row['x1']-border)) & \
+	            (pup_tmp['block_height'] >= (row['y0']+border)) & (pup_tmp['block_height'] <= (row['y1']-border))).any():
+	                resnet50_train.loc[c, 'with_pup'] = 1
+	#resnet50_train.with_pup.hist()
+	#resnet50_train.seal.hist()
+
+	# Now lets output and see if we can predict if we have a pup or not. 
+	resnet50_train.to_pickle('../coords/resnet_pups_trn.pkl')
+	resnet50_test.to_pickle('../coords/resnet_pups_tst.pkl')
+
+resnet50_train = pd.read_pickle('../coords/resnet_pups_trn.pkl')
+resnet50_test  = pd.read_pickle('../coords/resnet_pups_tst.pkl')
 
 # Lets validate the train file
 if validate:
@@ -137,7 +145,7 @@ def train_generator(datagen, df):
             x = datagen.random_transform(x)
             x = preprocess_input(x)
             batch_x[i] = x
-            batch_y[i,pup] = 1
+            batch_y[i,with_pup] = 1
             i += 1
         yield (batch_x.transpose(0, 3, 1, 2), batch_y)
 
@@ -178,6 +186,7 @@ train_datagen = ImageDataGenerator(
 CVsplit = resnet50_train.img.str.split('_').apply(lambda x: x[0]).astype(int) % 10 == 0
 train_df = resnet50_train[~CVsplit]
 valid_df = resnet50_train[CVsplit]
+test_df = resnet50_test
 
 # validation_data (valid_x,valid_y)
 df_1 = valid_df
@@ -195,14 +204,14 @@ for index,row in valid_df.iterrows():
     x = np.asarray(cropped, dtype=K.floatx())
     x = preprocess_input(x)
     valid_x[i] = x
-    valid_y[i,pup] = 1
+    valid_y[i,with_pup] = 1
     i += 1
 valid_x = valid_x.transpose(0, 3, 1, 2)
 valid_x.shape
 
 # Now lets see how our model works
 # Load our model
-nb_epoch = 2
+nb_epoch = 6 #2
 samples_per_epoch = 40000
 model = resnet50_model(ROWS, COLS, channel, num_class)
 for layer in model.layers:
@@ -229,7 +238,8 @@ model.fit_generator(train_generator(train_datagen, df=train_df),
           validation_data=(valid_x, valid_y),
           )
 
-# test_preds = test_model.predict_generator(test_generator(test_df), val_samples=test_df.shape[0]))
+model.save('checkpoints/model_resnet50TestPreds_Pups_0105.h5')
+
 test_preds = model.predict_generator(test_generator(test_df), val_samples=test_df.shape[0])
 
 df = pd.concat([test_df, pd.DataFrame(test_preds,  columns=['predNoPup', 'predPup'])], axis=1)

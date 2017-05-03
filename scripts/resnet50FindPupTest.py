@@ -178,6 +178,7 @@ train_datagen = ImageDataGenerator(
 CVsplit = resnet50_train.img.str.split('_').apply(lambda x: x[0]).astype(int) % 10 == 0
 train_df = resnet50_train[~CVsplit]
 valid_df = resnet50_train[CVsplit]
+test_df = resnet50_test
 
 # validation_data (valid_x,valid_y)
 df_1 = valid_df
