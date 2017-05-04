@@ -25,6 +25,7 @@ os.chdir('/home/darragh/Dropbox/noaa/feat')
 boundaries = [100,80,70,70,40]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 make_train = False
+make_train_classes = False
 make_test = True
 validate_train = False
 validate_test = False
@@ -75,7 +76,6 @@ def is_seal(row):
                 (coords['block_height']<(int(row['y1'])+check_border))).any()
     return int(seal)
 
-
 # Load the Xtrain files
 if make_train:
     # Get the ground truth labels
@@ -100,8 +100,6 @@ if make_train:
         rfcnCV = rfcnCV[(rfcnCV['y1']-rfcnCV['y0'])<150]
         del rfcnCVfold1, rfcnCVfold2
         gc.collect()
-    
-        
         rfcnCV['seal'] = rfcnCV.progress_apply(is_seal, axis=1)
         rfcnCV = rfcnCV.reset_index(drop=True)
         rfcnCV['h_diff'] = ROWS - (rfcnCV['y1'] -rfcnCV['y0'])
@@ -125,6 +123,87 @@ if make_train:
 else:
     rfcnCV = pd.read_pickle('../coords/rfcnCV.pkl' )
     rfcnCVlo06 = pd.read_pickle('../coords/rfcnCVlo06.pkl' )
+
+# For each row, check if there is a seal in the block
+def seal_class(row):
+    row_id, row_block = row['img'].split('_')
+    # We have an entry in coords for that box
+    check_border = 0
+    box_classes = [0, 0, 0, 0, 0, 0]
+    if ((coords['id']==int(row_id)) & \
+                (coords['block'] == row_block) & \
+                (coords['block_width']>(int(row['x0'])-check_border)) & \
+                (coords['block_width']<(int(row['x1'])+check_border)) & \
+                (coords['block_height']>(int(row['y0'])-check_border)) & \
+                (coords['block_height']<(int(row['y1'])+check_border))).any():
+        dfclass = coords[(coords['id']==int(row_id)) & \
+                (coords['block'] == row_block) & \
+                (coords['block_width']>(int(row['x0'])-check_border)) & \
+                (coords['block_width']<(int(row['x1'])+check_border)) & \
+                (coords['block_height']>(int(row['y0'])-check_border)) & \
+                (coords['block_height']<(int(row['y1'])+check_border))]
+        for c, irow in dfclass.iterrows():
+            box_classes[irow['class']] = 1
+        return box_classes
+    else:
+        # if it's not a seal mark the 'Not seal' class
+        return [0, 0, 0, 0, 0, 1]
+
+
+# Here instead of a binary label of a seal or not, we do a multiclass label so see which class of seal it is
+if make_train_classes:
+    # Get the ground truth labels
+    coords = pd.read_csv("../feat/coords_meta.csv")
+    train_meta = pd.read_csv("../feat/train_meta.csv", usecols = ['id', 'height', 'width', 'all_diff'])#,\
+    train_meta.columns = ['id', 'img_height', 'img_width', 'all_diff']
+    coords = pd.merge(coords, train_meta, on='id', how='inner')
+    coords['block_width'] = coords['width'].apply(lambda x: x*img_w).div(coords['img_width'], axis=0).apply(int)%block_size
+    coords['block_height'] = coords['height'].apply(lambda x: x*img_h).div(coords['img_height'], axis=0).apply(int)%block_size
+    coords['block'] = coords['width'].apply(lambda x: x*img_w).div(coords['img_width'], axis=0).apply(int).apply(lambda x: x/block_size).apply(str)+\
+                        coords['height'].apply(lambda x: x*img_h).div(coords['img_height'], axis=0).apply(int).apply(lambda x: x/block_size).apply(str)
+
+    def make_CV_class_boxes(cutoff, file_name):
+        rfcnCVfold2 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold2.txt",\
+                            delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+        rfcnCVfold1 = pd.read_csv("../coords/comp4_30000_det_test_seals_fold1.txt",\
+                            delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+        rfcnCVfold1['img'] = rfcnCVfold1['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
+        rfcnCV = pd.concat([rfcnCVfold2, rfcnCVfold1])
+        rfcnCV = rfcnCV[rfcnCV['proba']>cutoff]
+        rfcnCV = rfcnCV[(rfcnCV['x1']-rfcnCV['x0'])<150]
+        rfcnCV = rfcnCV[(rfcnCV['y1']-rfcnCV['y0'])<150]
+        del rfcnCVfold1, rfcnCVfold2
+        gc.collect()
+    
+        seal_classes = []
+        for c, row in rfcnCV.reset_index(drop=True).iterrows():
+            if c % 1000 == True: print ('Row ' + str(c))
+            seal_classes.append(seal_class(row))
+        rfcnCV['seal'] = rfcnCV.progress_apply(is_seal, axis=1)
+        headers = ['adult_males', 'subadult_males', 'adult_females', 'juveniles', 'pups', 'other']
+        rfcnCV = pd.concat([rfcnCV.reset_index(drop=True), pd.DataFrame(seal_classes, columns=headers)], axis = 1)
+        
+        rfcnCV['h_diff'] = ROWS - (rfcnCV['y1'] -rfcnCV['y0'])
+        rfcnCV['w_diff'] = COLS - (rfcnCV['x1'] -rfcnCV['x0'])
+        rfcnCV[rfcnCV['h_diff']<0]['h_diff'] = 0
+        rfcnCV[rfcnCV['w_diff']<0]['w_diff'] = 0
+        rfcnCV['x0'] = rfcnCV['x0'] - rfcnCV['w_diff'].divide(2)
+        rfcnCV['x1'] = rfcnCV['x1'] + rfcnCV['w_diff'].divide(2)
+        rfcnCV['y0'] = rfcnCV['y0'] - rfcnCV['h_diff'].divide(2)
+        rfcnCV['y1'] = rfcnCV['y1'] + rfcnCV['h_diff'].divide(2)
+        rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].add(np.where(rfcnCV['x0']<0, rfcnCV['x0'].abs(), 0), axis = 0 )
+        rfcnCV[['y0', 'y1']] = rfcnCV[['y0', 'y1']].add(np.where(rfcnCV['y0']<0, rfcnCV['y0'].abs(), 0), axis = 0 )
+        rfcnCV[['x0', 'x1']] = rfcnCV[['x0', 'x1']].subtract(np.where(rfcnCV['x1']>block_size, (rfcnCV['x1']-block_size).abs(), 0), axis = 0 )
+        rfcnCV[['y0', 'y1']] = rfcnCV[['y0', 'y1']].subtract(np.where(rfcnCV['y1']>block_size, (rfcnCV['y1']-block_size).abs(), 0), axis = 0 )
+        rfcnCV.drop(['h_diff', 'w_diff'], axis=1, inplace=True)
+        #rfcnCV.to_pickle('../coords/rfcnCV.pkl')
+        rfcnCV.to_pickle(file_name)
+        return rfcnCV
+    rfcnCVclass = make_CV_class_boxes(cutoff, '../coords/rfcnCVclass.pkl')
+    #rfcnCVlo06 = make_CV_boxes(0.6, '../coords/rfcnCVlo06.pkl')
+else:
+    rfcnCVclass = pd.read_pickle('../coords/rfcnCVclass.pkl' )
+    #rfcnCVlo06 = pd.read_pickle('../coords/rfcnCVlo06.pkl' )
 
 # Load the Xtrain files
 if make_test:
@@ -162,16 +241,19 @@ else:
 
 # Lets validate the train file
 if validate_test:
-    cond = rfcnTstlo06.img.str.contains('11695')
+    cond = rfcnTstlo06.img.str.contains('11695_54')
     for img_name in rfcnTstlo06[cond].img.unique():
         img = imread('../data/JPEGImagesTest/%s.jpg'%(img_name))
         bbox = rfcnTstlo06[rfcnTstlo06['img'] == img_name]
         bbox['w'] = bbox['x1'] - bbox['x0']
         bbox['h'] = bbox['y1'] - bbox['y0']
-        plt.figure(figsize=(4,4))
+        plt.figure(figsize=(20,20))
         plt.imshow(img)
         for c, row in bbox.iterrows():
             plt.gca().add_patch(plt.Rectangle((row['x0'], row['y0']), row['w'],\
             row['h'], color='red', fill=False, 
             lw=2))
             #lw=1+(2*row['seal'])))
+img = imread('../data/Test/%s.jpg'%(11695))
+plt.figure(figsize=(20,20))
+plt.imshow(img)
