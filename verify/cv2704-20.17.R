@@ -1,5 +1,62 @@
 
 ############################
+# Make a CV check
+############################
+rm(list=ls())
+library(Metrics)
+gc();gc();gc();gc();gc();gc();gc();gc();gc()
+gc();gc();gc();gc();gc();gc();gc();gc();gc()
+rfcn = rbind(fread("~/Dropbox/noaa/coords/vggCVPreds2604_fold1.csv"),
+             fread("~/Dropbox/noaa/coords/vggCVPreds2604_fold2.csv"))
+
+# Prune the high proba
+rfcn = rfcn[predSeal>.4]
+rfcn[,ct:=.N, by=img]
+y_pred = rfcn[,.(.N), by=img]
+y_pred[,img := as.integer(unlist(lapply(strsplit(img, "_"), function (x) x[1])))]
+y_pred = y_pred[,sum(N), by=img]
+y_pred = y_pred[order(img)]
+
+# Actuals
+y_act <- fread("train_meta1.csv")[,2:7,with=F]
+
+# Check up on RMSE
+cols = c("adult_males", "subadult_males", "adult_females", "juveniles", "pups")
+# Create the avg pred
+rep.row<-function(x,n) data.table(matrix(rep(x,each=n),nrow=n))
+
+avg = c(5,	4,	26,	15,	11)
+avg = colMeans(y_act[,-1, with=F])
+y_avg = cbind(y_pred$img, rep.row(avg, nrow(y_pred)))
+names(y_avg) = c("test_id", cols)
+
+
+# Lets optimise
+y_opt = y_avg
+y_opt$adult_males =  0.1 * (y_pred$V1)
+y_opt$adult_females =  0.5 * y_pred$V1
+y_opt$juveniles =  0.25 * (y_pred$V1)
+y_opt$pups =  0.2 * (y_pred$V1)
+hist(y_pred$V1, breaks = 300)
+
+# [1] "10.0992 ... adult_males"
+# [1] "6.5271 ... subadult_males"
+# [1] "75.8178 ... adult_females"
+# [1] "44.9216 ... juveniles"
+# [1] "50.2561 ... pups"
+
+# Add the missing ones
+zeroes = rep(0, length(cols))
+test_id = setdiff(y_act$id, y_pred$img)
+y_missing = cbind(test_id, rep.row(zeroes, length(test_id)))
+names(y_missing) = names(y_opt)
+y_opt = rbind(y_missing, y_opt)
+
+# check RMSE
+for (var in cols) print(paste0(round(rmse(y_act[[var]], y_opt[[var]]), 4), " ... ", var))
+
+
+############################
 # Make a sub
 ############################
 rm(list=ls())

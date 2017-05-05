@@ -241,19 +241,20 @@ else:
 
 # Lets validate the train file
 if validate_test:
-    cond = rfcnTstlo06.img.str.contains('11695_54')
+    cond = rfcnTstlo06.img.str.contains('12384')
     for img_name in rfcnTstlo06[cond].img.unique():
         img = imread('../data/JPEGImagesTest/%s.jpg'%(img_name))
         bbox = rfcnTstlo06[rfcnTstlo06['img'] == img_name]
         bbox['w'] = bbox['x1'] - bbox['x0']
         bbox['h'] = bbox['y1'] - bbox['y0']
-        plt.figure(figsize=(20,20))
+        plt.figure(figsize=(5,5))
         plt.imshow(img)
         for c, row in bbox.iterrows():
             plt.gca().add_patch(plt.Rectangle((row['x0'], row['y0']), row['w'],\
             row['h'], color='red', fill=False, 
             lw=2))
             #lw=1+(2*row['seal'])))
-img = imread('../data/Test/%s.jpg'%(11695))
-plt.figure(figsize=(20,20))
-plt.imshow(img)
+for ii in [2661, 15659,  3656,  2221, 14119, 11852, 17987,  4471, 15707,  2405,  3275,  9843,   163, 13485,  2515, 18081, 14358,  9062, 12384,  8426]:
+    img = imread('../data/Test/%s.jpg'%(ii))
+    plt.figure(figsize=(10,10))
+    plt.imshow(img)

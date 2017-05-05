@@ -49,12 +49,8 @@ rm(meta_tst1, meta_tst2, meta_trn1, meta_trn2)
 target_cols = names(meta_trn)[2:6]
 resnfile = c(paste0("resnet50CVPreds2604_fold", 1:2, ".csv"))
 vggfile = c(paste0("vggCVPreds2604_fold", 1:2, ".csv"))
-resnlofile = c(paste0("resnet50CVPredslo06_0105_fold", 1:2, ".csv"))
-resn50lotrn = rbind(fread(resnlofile[1]), fread(resnlofile[2]))
 resn50trn = rbind(fread(resnfile[1]), fread(resnfile[2]))
 vggtrn = rbind(fread(vggfile[1]), fread(vggfile[2]))
-
-resn50lotst = fread("resnet50TestPredslo06_0105.csv")  
 resn50tst = fread("resnet50TestPreds2604.csv")  
 vggtst = fread("vggTestPreds2604.csv")
 
@@ -67,16 +63,9 @@ resn50trn[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 resn50tst[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 resn50bigtrn = getBreaks(resn50trn, c(seq(.2,.8,.2), .9, .95), "resn50")
 resn50bigtst = getBreaks(resn50tst, c(seq(.2,.8,.2), .9, .95), "resn50")
-resn50lotrn[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
-resn50lotst[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
-resn50lobigtrn = getBreaks(resn50lotrn, c(seq(.2,.8,.2), .9, .95), "resnlo50")
-resn50lobigtst = getBreaks(resn50lotst, c(seq(.2,.8,.2), .9, .95), "resnlo50")
 
 ct_trn = merge(resn50bigtrn, vggbigtrn, all = T, by = "img") 
 ct_tst = merge(resn50bigtst, vggbigtst, all = T, by = "img") 
-ct_trn = merge(resn50lobigtrn, ct_trn, all = T, by = "img") 
-ct_tst = merge(resn50lobigtst, ct_tst, all = T, by = "img") 
-
 rm(vggtrn, vggbigtrn, resn50trn, resn50bigtrn)
 rm(vggtst, vggbigtst, resn50tst, resn50bigtst)
 gc();gc();gc();gc();gc();gc()
@@ -110,7 +99,7 @@ for( var in target_cols){
                     eta = 0.1,
                     nrounds = 400,
                     verbose = 0,
-                    colsample_bytree = 0.3,
+                    colsample_bytree = 0.4,
                     max_depth = 4,
                     objective = 'reg:linear',
                     eval_metric = 'rmse')
@@ -165,7 +154,7 @@ sub_out
 sub_ct
 subDt
 
-write.csv(sub_out, paste0("../sub/sub-xgbA-ct-", Sys.Date(), ".csv"), row.names = F)
+write.csv(sub_out, paste0("../sub/sub-xgbB-ct-", Sys.Date(), ".csv"), row.names = F)
 
 
   
