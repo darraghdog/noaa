@@ -52,3 +52,75 @@
 [I 07:00:53.302 NotebookApp] Kernel restarted: dc821e0e-9c7e-4a39-8afc-6e915c3e8e53
 [I 07:02:24.991 NotebookApp] Saving file at /scripts/resnet50CVPred_0.6_0105.ipynb
 [I 20:00:24.400 NotebookApp] Saving file at /scripts/resnet50CVPred_0.6_0105.ipynb
+[I 21:08:33.078 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 21:08:33.082 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 21:08:36.960 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 21:08:37.780 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 21:08:37.780 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 21:08:37.784 NotebookApp] [nb_conda] enabled
+[I 21:08:41.524 NotebookApp] [nb_anacondacloud] enabled
+[I 21:08:42.112 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 21:08:42.113 NotebookApp] 0 active kernels 
+[I 21:08:42.113 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 21:08:42.113 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 21:08:49.992 NotebookApp] 302 GET / (176.61.36.2) 0.61ms
+[I 21:08:50.014 NotebookApp] 302 GET /tree (176.61.36.2) 0.87ms
+[I 21:08:56.696 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 0.82ms
+[I 21:09:17.150 NotebookApp] Copying scripts/resnet50CVPred2604_.ipynb to /scripts
+[I 21:09:52.260 NotebookApp] Kernel started: 86eeccb5-1687-4270-b487-a749069d5210
+[I 21:10:30.329 NotebookApp] Kernel restarted: 86eeccb5-1687-4270-b487-a749069d5210
+[I 21:10:59.012 NotebookApp] Kernel interrupted: 86eeccb5-1687-4270-b487-a749069d5210
+[I 21:11:51.043 NotebookApp] Kernel shutdown: 86eeccb5-1687-4270-b487-a749069d5210
+[I 21:11:54.371 NotebookApp] Kernel started: f3d0a1ee-c3f3-43f0-8a74-e364eb2b1551
+[I 21:13:54.583 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:14:42.246 NotebookApp] Kernel started: 7aaa2a5f-de50-433f-b7e8-98b638d1c6ff
+[I 21:15:54.392 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:16:08.698 NotebookApp] Kernel restarted: f3d0a1ee-c3f3-43f0-8a74-e364eb2b1551
+[I 21:17:54.386 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:19:54.654 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:20:42.259 NotebookApp] Saving file at /scripts/resnet50CVPred2604_.ipynb
+[I 21:21:56.175 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:23:56.233 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:24:01.410 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:24:05.646 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:24:55.431 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:25:08.328 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:26:07.091 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:26:19.753 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:27:22.780 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:27:56.140 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:27:58.673 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:28:06.800 NotebookApp] Kernel restarted: f3d0a1ee-c3f3-43f0-8a74-e364eb2b1551
+[I 21:29:56.142 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:30:10.620 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:31:56.136 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:33:36.643 NotebookApp] Kernel interrupted: f3d0a1ee-c3f3-43f0-8a74-e364eb2b1551
+[I 21:33:56.369 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:34:29.291 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:34:58.777 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:35:17.428 NotebookApp] Kernel restarted: f3d0a1ee-c3f3-43f0-8a74-e364eb2b1551
+[I 21:35:56.786 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:42:09.718 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:47:56.581 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:57:56.160 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 21:59:56.118 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:00:01.920 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:00:25.901 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:01:11.395 NotebookApp] Kernel restarted: f3d0a1ee-c3f3-43f0-8a74-e364eb2b1551
+[I 22:01:12.070 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:01:56.755 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:08:56.645 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:09:56.729 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:11:56.099 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:55:16.426 NotebookApp] 302 GET / (106.184.3.122) 0.57ms
+[I 07:53:56.105 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 17:31:55.237 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 17:33:49.078 NotebookApp] Saving file at /scripts/resnet50CVClassPred0405.ipynb
+[I 22:07:42.603 NotebookApp] Copying scripts/resnet50TestPred2604.ipynb to /scripts
+[I 22:08:14.706 NotebookApp] Kernel started: 41f5b2bd-2607-49e0-b90b-ce6e76d85d96
+[I 22:10:14.758 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:12:14.767 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:14:12.178 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:15:39.970 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:16:01.832 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:16:36.487 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
