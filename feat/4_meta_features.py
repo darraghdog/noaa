@@ -247,25 +247,22 @@ gc.collect()
 
 # Function to get area of coverage and overlap of seals
 def getOverlap(preddf):
-    preddf = preddf.sort('img')
+    preddf = preddf.sort('img').reset_index(drop=True)
     imgs = []
     coverage = []
-    overlap2 = []
-    overlap3 = []
-    imgprev = preddf.img.values[0]
     mat = np.zeros((544, 544))
     for c, row in tqdm(preddf.iterrows(), miniters=100):
-        if row['img'] != imgprev:
-            coverage.append(np.sum(mat>0))
-            overlap2.append(np.sum(mat>1))
-            overlap3.append(np.sum(mat>2))
-            imgs.append(row['img'])
+        if c==0 : imgprev = row['img']
+        if row['img'] != imgprev and c > 0 :
+            coverage.append([imgprev, np.sum(mat>0),np.sum(mat>1),np.sum(mat>2)])   
             mat = np.zeros((544, 544))
             imgprev = row['img']
         row_idx = np.array(range(int(row['x0']), int(row['x1'])))   
         col_idx = np.array(range(int(row['y0']), int(row['y1'])))
         mat[row_idx[:, None], col_idx] = mat[row_idx[:, None], col_idx] + 1
-    sealCover = pd.DataFrame({'img': imgs, 'sealCoverage': coverage, 'sealOverlap2': overlap2, 'sealOverlap3': overlap3})
+    coverage.append([imgprev, np.sum(mat>0),np.sum(mat>1),np.sum(mat>2)]) 
+    
+    sealCover = pd.DataFrame(coverage, columns = ['img', 'sealCoverage', 'sealOverlap2', 'sealOverlap3'])
     sealCover['bigimg'] = sealCover['img'].apply(lambda x: int(x.split('_')[0]))
     sealCover.drop(['img'], axis=1, inplace=True)
     sealCover = sealCover.groupby(['bigimg']).sum()
@@ -287,31 +284,28 @@ resn50TstOlap = getOverlap(resn50Tst)
 resn50CVOlap.to_csv('../coords/train_meta2.csv', index=True)
 resn50TstOlap.to_csv('../coords/test_meta2.csv')
 
+#resn50CVOlap1 = pd.read_csv('../coords/train_meta2.csv')
+#resn50TstOlap1 = pd.read_csv('../coords/test_meta2.csv')
 resn50CVOlap.head()
 
-# Function to get area of coverage and overlap of seals
+# Function to get area of coverage and overlap of seals of the Blocked images
 def getOverlapBlock(preddf):
-    preddf = preddf.sort('img')
+    preddf = preddf.sort('img').reset_index(drop=True)
     imgs = []
     coverage = []
-    overlap2 = []
-    overlap3 = []
-    imgprev = preddf.img.values[0]
     mat = np.zeros((544, 544))
     for c, row in tqdm(preddf.iterrows(), miniters=100):
-        if row['img'] != imgprev:
-            coverage.append(np.sum(mat>0))
-            overlap2.append(np.sum(mat>1))
-            overlap3.append(np.sum(mat>2))
-            imgs.append(row['img'])
+        if c==0 : imgprev = row['img']
+        if row['img'] != imgprev and c > 0 :
+            coverage.append([imgprev, np.sum(mat>0),np.sum(mat>1),np.sum(mat>2)])   
             mat = np.zeros((544, 544))
             imgprev = row['img']
         row_idx = np.array(range(int(row['x0']), int(row['x1'])))   
         col_idx = np.array(range(int(row['y0']), int(row['y1'])))
         mat[row_idx[:, None], col_idx] = mat[row_idx[:, None], col_idx] + 1
-    sealCover = pd.DataFrame({'img': imgs, 'sealCoverage': coverage, 'sealOverlap2': overlap2, 'sealOverlap3': overlap3})
-    #sealCover['bigimg'] = sealCover['img'].apply(lambda x: int(x.split('_')[0]))
-    #sealCover.drop(['img'], axis=1, inplace=True)
+    coverage.append([imgprev, np.sum(mat>0),np.sum(mat>1),np.sum(mat>2)]) 
+    
+    sealCover = pd.DataFrame(coverage, columns = ['img', 'sealCoverage', 'sealOverlap2', 'sealOverlap3'])
     sealCover = sealCover.groupby(['img']).sum()
     def divide_by_area(x):
         return x.divide(544*544).astype('float')
@@ -324,15 +318,14 @@ def getOverlapBlock(preddf):
         sealOverlapProp3.append(row['sealOverlap3']/row['sealCoverage'])
     sealCover['sealOverlapProp2'] = sealOverlapProp2
     sealCover['sealOverlapProp3'] = sealOverlapProp3
-    return sealCover   
+    return sealCover    
 
-# Load up resnet trn predictions
+# Calculate the seal coverage and overlap of the blocked images
 resn50Tst = pd.read_pickle('../coords/resnet50Preds2604.pkl')
 resn50CV = pd.concat([pd.read_pickle('../coords/resnet50CVPreds2604_fold1.pkl'),
                       pd.read_pickle('../coords/resnet50CVPreds2604_fold2.pkl')], axis=0)
 resn50CV = resn50CV[resn50CV['predSeal']>0.5].reset_index(drop=True)
 resn50Tst = resn50Tst[resn50Tst['predSeal']>0.5].reset_index(drop=True)
-
 keep_cols = ['img', 'x0', 'y0', 'x1', 'y1']
 resn50CV = resn50CV[keep_cols]
 resn50Tst = resn50Tst[keep_cols]
@@ -343,49 +336,3 @@ resn50TstOlap = getOverlapBlock(resn50Tst)
 
 resn50CVOlap.to_csv('../coords/train_block_meta2.csv', index=True)
 resn50TstOlap.to_csv('../coords/test_block_meta2.csv')
-
-## Prepare data
-#X = np.array(train_features.drop(['image_name', 'tags'], axis=1))
-#y_train = []
-#
-#flatten = lambda l: [item for sublist in l for item in sublist]
-#labels = np.array(list(set(flatten([l.split(' ') for l in train_features['tags'].values]))))
-#
-#label_map = {l: i for i, l in enumerate(labels)}
-#inv_label_map = {i: l for l, i in label_map.items()}
-#
-#for tags in tqdm(train.tags.values, miniters=1000):
-#    targets = np.zeros(17)
-#    for t in tags.split(' '):
-#        targets[label_map[t]] = 1 
-#    y_train.append(targets)
-#    
-#y = np.array(y_train, np.uint8)
-#
-#print('X.shape = ' + str(X.shape))
-#print('y.shape = ' + str(y.shape))
-#
-#n_classes = y.shape[1]
-#
-#X_test = np.array(test_features.drop(['image_name', 'tags'], axis=1))
-#
-## Train and predict with one-vs-all strategy
-#y_pred = np.zeros((X_test.shape[0], n_classes))
-#
-#print('Training and making predictions')
-#for class_i in tqdm(range(n_classes), miniters=1): 
-#    model = xgb.XGBClassifier(max_depth=5, learning_rate=0.1, n_estimators=100, \
-#                              silent=True, objective='binary:logistic', nthread=-1, \
-#                              gamma=0, min_child_weight=1, max_delta_step=0, \
-#                              subsample=1, colsample_bytree=1, colsample_bylevel=1, \
-#                              reg_alpha=0, reg_lambda=1, scale_pos_weight=1, \
-#                              base_score=0.5, seed=random_seed, missing=None)
-#    model.fit(X, y[:, class_i])
-#    y_pred[:, class_i] = model.predict_proba(X_test)[:, 1]
-#
-#preds = [' '.join(labels[y_pred_row > 0.2]) for y_pred_row in y_pred]
-#
-#subm = pd.DataFrame()
-#subm['image_name'] = test_features.image_name.values
-#subm['tags'] = preds
-#subm.to_csv('submission.csv', index=False)
