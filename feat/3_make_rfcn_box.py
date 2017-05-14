@@ -241,20 +241,61 @@ else:
 
 # Lets validate the train file
 if validate_test:
-    cond = rfcnTstlo06.img.str.contains('12384')
-    for img_name in rfcnTstlo06[cond].img.unique():
-        img = imread('../data/JPEGImagesTest/%s.jpg'%(img_name))
-        bbox = rfcnTstlo06[rfcnTstlo06['img'] == img_name]
+    cond = rfcnCV.img.str.contains('189_')
+    for img_name in rfcnCV[cond].img.unique():
+        img = imread('../data/JPEGImagesBlk/%s.jpg'%(img_name))
+        bbox = rfcnCV[rfcnCV['img'] == img_name]
         bbox['w'] = bbox['x1'] - bbox['x0']
         bbox['h'] = bbox['y1'] - bbox['y0']
-        plt.figure(figsize=(5,5))
+        plt.figure(figsize=(10,10))
         plt.imshow(img)
         for c, row in bbox.iterrows():
             plt.gca().add_patch(plt.Rectangle((row['x0'], row['y0']), row['w'],\
-            row['h'], color='red', fill=False, 
-            lw=2))
-            #lw=1+(2*row['seal'])))
+            row['h'], color='red', fill=False, lw=2))
+
+#  
+if validate_test:
+    ids = [2038]
+    for id_ in ids:
+        print id_
+        cond = rfcnTst.img.str.contains(str(id_)+'_')
+        vals = rfcnTst[cond].img.unique()
+        for img_name in vals:
+            if img_name[:len(str(id_))] == str(id_):
+                img = imread('../data/JPEGImagesTest/%s.jpg'%(img_name))
+                bbox = rfcnTst[rfcnTst['img'] == img_name]
+                bbox['w'] = bbox['x1'] - bbox['x0']
+                bbox['h'] = bbox['y1'] - bbox['y0']
+                plt.figure(figsize=(7,7))
+                plt.imshow(img)
+                for c, row in bbox.iterrows():
+                    plt.gca().add_patch(plt.Rectangle((row['x0'], row['y0']), row['w'],\
+                    row['h'], color='red', fill=False, lw=2))           
+
+
+if validate_test:
+    ids = [163, 306, 322, 886, 923, 1334, 1366, 1411, 1419, 1719, 1810, 1892, 1915, 1976, 1979, 2038]
+    ids =[2038]
+    for id_ in ids:
+        img = imread('../data/Test/%s.jpg'%(id_))
+        plt.figure(figsize=(20,20))
+        plt.imshow(img)
+
+
+     
 for ii in [2661, 15659,  3656,  2221, 14119, 11852, 17987,  4471, 15707,  2405,  3275,  9843,   163, 13485,  2515, 18081, 14358,  9062, 12384,  8426]:
     img = imread('../data/Test/%s.jpg'%(ii))
     plt.figure(figsize=(10,10))
     plt.imshow(img)
+
+# Ones where we don't have no pups
+for ii in [105, 110, 112, 113, 117, 123, 127, 132, 139, 145, 149, 167, 211, 222, 245, 260, 300, 329, 350, 387]:
+    img = imread('../data/Train/%s.jpg'%(ii))
+    plt.figure(figsize=(10,10))
+    plt.imshow(img)
+    
+for ii in [185, 200, 226 ,244, 251, 267, 275, 275, 288, 288, 289, 296, 305, 322, 486, 592, 682]:
+    img = imread('../data/Train/%s.jpg'%(ii))
+    plt.figure(figsize=(10,10))
+    plt.imshow(img)
+    

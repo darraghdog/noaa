@@ -148,7 +148,12 @@ sub_ct = fread("../sub/sub-RFCN-2017-04-27-0.2_tune.csv")
 sub_out = sub_ct
 for(var in target_cols) print(paste0(round(cor(sub_out[[var]], sub_ct[[var]]), 3), " ... ", var))
 par(mfrow=c(2,3))
-for(var in target_cols) plot(sub_ct[[var]], subDt[[var]], main = var)
+for(var in target_cols) {
+  mx = max(c(sub_ct[[var]], subDt[[var]]))
+  plot(sub_ct[[var]], subDt[[var]], main = var, xlim = c(0, mx), ylim = c(0, mx))
+}
+sub_out
+
 for(var in target_cols) sub_out[[var]] = round((0.5*sub_ct[[var]]) + (0.5*subDt[[var]]))
 sub_out
 sub_ct
