@@ -124,3 +124,32 @@
 [I 22:15:39.970 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
 [I 22:16:01.832 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
 [I 22:16:36.487 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:41:04.194 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 22:41:04.314 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 22:41:07.582 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 22:41:08.349 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 22:41:08.349 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 22:41:08.353 NotebookApp] [nb_conda] enabled
+[I 22:41:11.532 NotebookApp] [nb_anacondacloud] enabled
+[I 22:41:11.790 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 22:41:11.790 NotebookApp] 0 active kernels 
+[I 22:41:11.790 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 22:41:11.790 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 22:41:38.210 NotebookApp] 302 GET / (176.61.36.2) 0.60ms
+[I 22:41:38.231 NotebookApp] 302 GET /tree (176.61.36.2) 0.72ms
+[I 22:43:09.864 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 0.81ms
+[I 22:43:23.045 NotebookApp] Kernel started: a6141438-a673-451c-8339-2a3e07f1fe35
+[I 22:43:29.951 NotebookApp] Kernel restarted: a6141438-a673-451c-8339-2a3e07f1fe35
+[I 22:45:22.921 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:47:22.913 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:48:23.743 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:48:28.864 NotebookApp] Kernel restarted: a6141438-a673-451c-8339-2a3e07f1fe35
+[W 22:48:28.867 NotebookApp] zmq message arrived on closed channel
+[I 22:49:22.909 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 22:51:22.921 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[I 01:03:25.717 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[W 02:36:27.214 NotebookApp] 404 GET /manager/html (117.21.191.2) 6.94ms referer=None
+[W 02:41:36.756 NotebookApp] 404 GET /manager/html (117.21.191.2) 1.71ms referer=None
+[W 07:11:24.280 NotebookApp] 404 GET http://www.baidu.com/cache/global/img/gs.gif (93.174.93.136) 1.54ms referer=None
+[I 07:17:25.437 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[W 08:21:16.096 NotebookApp] 404 GET http://www.baidu.com/favicon.ico (123.59.62.69) 1.61ms referer=None
