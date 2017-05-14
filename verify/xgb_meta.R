@@ -70,6 +70,22 @@ rm(vggtrn, vggbigtrn, resn50trn, resn50bigtrn)
 rm(vggtst, vggbigtst, resn50tst, resn50bigtst)
 gc();gc();gc();gc();gc();gc()
 
+
+# Class Predictions
+resnclfile = c(paste0("resnet50CVclassPreds0405_fold", 1:2, ".csv"))
+resn50cltrn = rbind(fread(resnclfile[1]), fread(resnclfile[2]))[,c(1,3,5,7,9,11),with=F]
+resn50cltst = fread("resnet50TestclassPreds2604.csv")[,1:6,with=F]
+for(var in c(target_cols)) resn50cltrn[[paste0("cutclass0.2_", var)]] = ifelse(resn50cltrn[[var]]>0.2, 1, 0)
+for(var in c(target_cols)) resn50cltst[[paste0("cutclass0.2_", var)]] = ifelse(resn50cltst[[var]]>0.2, 1, 0)
+resn50cltrn = resn50cltrn[,setdiff(names(resn50cltrn), c("others", target_cols)), with=F]
+resn50cltst = resn50cltst[,setdiff(names(resn50cltst), c("others", target_cols)), with=F]
+resn50cltrn[, img := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
+resn50cltst[, img := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
+resn50cltrn = resn50cltrn[, lapply(.SD, sum, na.rm=TRUE), by="img" ][order(img)]
+resn50cltst = resn50cltst[, lapply(.SD, sum, na.rm=TRUE), by="img" ][order(img)]
+resn50cltrn[,img:=as.integer(img)]
+resn50cltst[,img:=as.integer(img)]
+
 # Create training and test sets
 names(meta_tst)[1] = names(meta_trn)[1]  = "img"
 Xtrn = merge(meta_trn, ct_trn, all = T, by = "img")
@@ -148,13 +164,22 @@ sub_ct = fread("../sub/sub-RFCN-2017-04-27-0.2_tune.csv")
 sub_out = sub_ct
 for(var in target_cols) print(paste0(round(cor(sub_out[[var]], sub_ct[[var]]), 3), " ... ", var))
 par(mfrow=c(2,3))
-for(var in target_cols) plot(sub_ct[[var]], subDt[[var]], main = var)
+for(var in target_cols) {
+  mx = max(c(sub_ct[[var]], subDt[[var]]))
+  plot(sub_ct[[var]], subDt[[var]], main = var, xlim = c(0, mx), ylim = c(0, mx))
+}
+
 for(var in target_cols) sub_out[[var]] = round((0.5*sub_ct[[var]]) + (0.5*subDt[[var]]))
+
+# Try fixing up pups and classes to account for classes
+hist(sub_out$adult_females)
+
+
 sub_out
 sub_ct
 subDt
 
-write.csv(sub_out, paste0("../sub/sub-xgbB-ct-", Sys.Date(), ".csv"), row.names = F)
+write.csv(sub_out, paste0("../sub/sub-xgb-fix-coverage-bug-", Sys.Date(), ".csv"), row.names = F)
 
 
   
