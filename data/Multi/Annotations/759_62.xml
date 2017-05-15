@@ -16,58 +16,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>10.0</xmin>
-			<ymin>425.0</ymin>
-			<xmax>120.0</xmax>
-			<ymax>535.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>25.0</xmin>
-			<ymin>440.0</ymin>
-			<xmax>105.0</xmax>
-			<ymax>520.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>35.0</xmin>
-			<ymin>450.0</ymin>
-			<xmax>95.0</xmax>
-			<ymax>510.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>128.0</xmin>
-			<ymin>456.0</ymin>
-			<xmax>278.0</xmax>
-			<ymax>543.9</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>148.0</xmin>
-			<ymin>476.0</ymin>
-			<xmax>258.0</xmax>
-			<ymax>543.9</ymax>
+			<xmin>40.0</xmin>
+			<ymin>455.0</ymin>
+			<xmax>90.0</xmax>
+			<ymax>505.0</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -88,33 +40,9 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>210.0</xmin>
-			<ymin>475.0</ymin>
-			<xmax>320.0</xmax>
-			<ymax>543.9</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>225.0</xmin>
-			<ymin>490.0</ymin>
-			<xmax>305.0</xmax>
-			<ymax>543.9</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>235.0</xmin>
-			<ymin>500.0</ymin>
-			<xmax>295.0</xmax>
+			<xmin>240.0</xmin>
+			<ymin>505.0</ymin>
+			<xmax>290.0</xmax>
 			<ymax>543.9</ymax>
 		</bndbox>
 	</object></annotation>

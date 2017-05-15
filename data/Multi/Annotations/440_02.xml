@@ -16,58 +16,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>253.0</xmin>
-			<ymin>227.0</ymin>
-			<xmax>363.0</xmax>
-			<ymax>337.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>268.0</xmin>
-			<ymin>242.0</ymin>
-			<xmax>348.0</xmax>
-			<ymax>322.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>278.0</xmin>
-			<ymin>252.0</ymin>
-			<xmax>338.0</xmax>
-			<ymax>312.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>328.0</xmin>
-			<ymin>392.0</ymin>
-			<xmax>438.0</xmax>
-			<ymax>502.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>343.0</xmin>
-			<ymin>407.0</ymin>
-			<xmax>423.0</xmax>
-			<ymax>487.0</ymax>
+			<xmin>283.0</xmin>
+			<ymin>257.0</ymin>
+			<xmax>333.0</xmax>
+			<ymax>307.0</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -88,30 +40,6 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>381.0</xmin>
-			<ymin>440.0</ymin>
-			<xmax>491.0</xmax>
-			<ymax>543.9</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>396.0</xmin>
-			<ymin>455.0</ymin>
-			<xmax>476.0</xmax>
-			<ymax>535.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
 			<xmin>406.0</xmin>
 			<ymin>465.0</ymin>
 			<xmax>466.0</xmax>
@@ -124,58 +52,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>413.0</xmin>
-			<ymin>45.0</ymin>
-			<xmax>523.0</xmax>
-			<ymax>155.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>423.0</xmin>
-			<ymin>0.1</ymin>
-			<xmax>533.0</xmax>
-			<ymax>79.1</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>428.0</xmin>
-			<ymin>60.0</ymin>
-			<xmax>508.0</xmax>
-			<ymax>140.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>438.0</xmin>
-			<ymin>0.1</ymin>
-			<xmax>518.0</xmax>
-			<ymax>64.1</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>438.0</xmin>
-			<ymin>70.0</ymin>
-			<xmax>498.0</xmax>
-			<ymax>130.0</ymax>
+			<xmin>443.0</xmin>
+			<ymin>75.0</ymin>
+			<xmax>493.0</xmax>
+			<ymax>125.0</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -188,30 +68,6 @@
 			<ymin>0.1</ymin>
 			<xmax>508.0</xmax>
 			<ymax>54.1</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>480.0</xmin>
-			<ymin>12.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>122.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>495.0</xmin>
-			<ymin>27.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>107.0</ymax>
 		</bndbox>
 	</object>
 	<object>

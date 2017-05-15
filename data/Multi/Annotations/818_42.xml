@@ -16,58 +16,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>299.0</xmin>
-			<ymin>91.0</ymin>
-			<xmax>409.0</xmax>
-			<ymax>201.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>314.0</xmin>
-			<ymin>106.0</ymin>
-			<xmax>394.0</xmax>
-			<ymax>186.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>324.0</xmin>
-			<ymin>116.0</ymin>
-			<xmax>384.0</xmax>
-			<ymax>176.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>393.0</xmin>
-			<ymin>7.0</ymin>
-			<xmax>543.0</xmax>
-			<ymax>157.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>413.0</xmin>
-			<ymin>27.0</ymin>
-			<xmax>523.0</xmax>
-			<ymax>137.0</ymax>
+			<xmin>329.0</xmin>
+			<ymin>121.0</ymin>
+			<xmax>379.0</xmax>
+			<ymax>171.0</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -88,33 +40,9 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>476.0</xmin>
-			<ymin>40.0</ymin>
+			<xmin>506.0</xmin>
+			<ymin>70.0</ymin>
 			<xmax>543.9</xmax>
-			<ymax>150.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>491.0</xmin>
-			<ymin>55.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>135.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>501.0</xmin>
-			<ymin>65.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>125.0</ymax>
+			<ymax>120.0</ymax>
 		</bndbox>
 	</object></annotation>

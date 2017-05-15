@@ -16,10 +16,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0.1</xmin>
-			<ymin>0.1</ymin>
-			<xmax>87.1</xmax>
-			<ymax>110.1</ymax>
+			<xmin>7.0</xmin>
+			<ymin>30.0</ymin>
+			<xmax>57.0</xmax>
+			<ymax>80.0</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -28,82 +28,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>0.1</xmin>
-			<ymin>15.0</ymin>
-			<xmax>72.1</xmax>
-			<ymax>95.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>2.0</xmin>
-			<ymin>25.0</ymin>
-			<xmax>62.0</xmax>
-			<ymax>85.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>60.0</xmin>
-			<ymin>0.1</ymin>
-			<xmax>170.0</xmax>
-			<ymax>98.1</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>75.0</xmin>
-			<ymin>3.0</ymin>
-			<xmax>155.0</xmax>
-			<ymax>83.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>78.0</xmin>
-			<ymin>197.0</ymin>
-			<xmax>228.0</xmax>
-			<ymax>347.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>85.0</xmin>
-			<ymin>13.0</ymin>
-			<xmax>145.0</xmax>
-			<ymax>73.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>98.0</xmin>
-			<ymin>217.0</ymin>
-			<xmax>208.0</xmax>
-			<ymax>327.0</ymax>
+			<xmin>90.0</xmin>
+			<ymin>18.0</ymin>
+			<xmax>140.0</xmax>
+			<ymax>68.0</ymax>
 		</bndbox>
 	</object>
 	<object>

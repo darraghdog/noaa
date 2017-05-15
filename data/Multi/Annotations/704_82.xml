@@ -16,58 +16,10 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>377.0</xmin>
-			<ymin>145.0</ymin>
-			<xmax>487.0</xmax>
-			<ymax>255.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>392.0</xmin>
-			<ymin>160.0</ymin>
-			<xmax>472.0</xmax>
-			<ymax>240.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>402.0</xmin>
-			<ymin>170.0</ymin>
-			<xmax>462.0</xmax>
-			<ymax>230.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>429.0</xmin>
-			<ymin>277.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>427.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>449.0</xmin>
-			<ymin>297.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>407.0</ymax>
+			<xmin>407.0</xmin>
+			<ymin>175.0</ymin>
+			<xmax>457.0</xmax>
+			<ymax>225.0</ymax>
 		</bndbox>
 	</object>
 	<object>
@@ -88,33 +40,9 @@
 		<truncated>0</truncated>
 		<difficult>0</difficult>
 		<bndbox>
-			<xmin>473.0</xmin>
-			<ymin>243.0</ymin>
+			<xmin>503.0</xmin>
+			<ymin>273.0</ymin>
 			<xmax>543.9</xmax>
-			<ymax>353.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>488.0</xmin>
-			<ymin>258.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>338.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>498.0</xmin>
-			<ymin>268.0</ymin>
-			<xmax>543.9</xmax>
-			<ymax>328.0</ymax>
+			<ymax>323.0</ymax>
 		</bndbox>
 	</object></annotation>

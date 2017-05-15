@@ -19,7 +19,7 @@ warnings.filterwarnings('ignore')
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
 os.chdir('/home/darragh/Dropbox/noaa/feat')
-boundaries = [[150,110,110,110,30], [110,80,80,80,25], [80,60,60,60,20]]
+boundaries = [[80,60,50,50,20]]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 validate = False
 validate_rfcn = False
@@ -102,13 +102,14 @@ def getCoordBoundaries(colors, boundary, dfcoords):
     return dfcoords
 
 
-coords = pd.concat([getCoordBoundaries(colors, boundaries[0], coords),\
-               getCoordBoundaries(colors, boundaries[1], coords),\
-                getCoordBoundaries(colors, boundaries[2], coords)], axis=0)
+#coords = pd.concat([getCoordBoundaries(colors, boundaries[0], coords),\
+#               getCoordBoundaries(colors, boundaries[1], coords),\
+#                getCoordBoundaries(colors, boundaries[2], coords)], axis=0)
+coords = getCoordBoundaries(colors, boundaries[0], coords)
 coords = coords.sort(['id', 'block', 'x0', 'y0'])
 
 # Send this file to disk
-coords.to_csv("block_multibbox_coords.csv", index=False)
+coords.to_csv("block_smallbbox_coords.csv", index=False)
 blocks = coords[['id', 'block']].drop_duplicates().reset_index(drop=True)
 # coords = pd.read_csv("block_coords.csv")
 
@@ -117,6 +118,15 @@ def decsc(a):
 
 # Write out VOC labels
 for c, irow in blocks.reset_index().iterrows():
+    import glob
+    if not os.path.exists('../data/Multi'):
+        os.mkdir('../data/Multi')
+    if not os.path.exists('../data/Multi/Annotations'):
+        os.mkdir('../data/Multi/Annotations')
+    if not os.path.exists('../data/Multi/yolo_labels'):
+        os.mkdir('../data/Multi/yolo_labels')
+    if not os.path.exists('../data/Multi/yolo_labels/seals'):
+        os.mkdir('../data/Multi/yolo_labels/seals')
     if c % 200==0:print c
     bbox = coords[coords['id']==irow['id']]
     bbox = bbox[bbox['block']==irow['block']]
@@ -194,6 +204,7 @@ if annotations:
     TEST_DIR = "../data/JPEGImagesTest"
     
     pred_ls = []
+    pred_tst_ls = [f.replace('.jpg', '') for f in os.listdir(TRAIN_DIR)]
     for n, block in blocks.iterrows():
         # if n>102:break
         bbox = pd.read_csv('../data/Multi/yolo_labels/seals/%s_%s.txt'%(block['id'], block['block']),\
@@ -264,7 +275,7 @@ if annotations:
     #trn_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==0]
     #tst_img = [str(row[1][0])+'_'+str(row[1][1]) for row in blocks.iterrows() if row[1][0]%2==1]
     trn_img = [val for val in pred_ls if int(val.split('_')[0])%2==0]
-    tst_img = [val for val in pred_ls if int(val.split('_')[0])%2==1]
+    tst_img = [val for val in pred_tst_ls if int(val.split('_')[0])%2==1]
     with open('../data/Multi/ImageSets/Main/trainval_fold1.txt','w') as f:
         for im in trn_img:
             f.write(im + '\n')
@@ -275,7 +286,8 @@ if annotations:
         for im in tst_img:
             f.write(im + '\n')
     trn_img = [val for val in pred_ls if int(val.split('_')[0])%2==1]
-    tst_img = [val for val in pred_ls if int(val.split('_')[0])%2==0]
+    tst_img = [val for val in pred_tst_ls if int(val.split('_')[0])%2==0]
+    trn_all_img = [val for val in pred_ls]
     with open('../data/Multi/ImageSets/Main/trainval_fold2.txt','w') as f:
         for im in trn_img:
             f.write(im + '\n')
@@ -287,10 +299,10 @@ if annotations:
             f.write(im + '\n')
     
     with open('../data/Multi/ImageSets/Main/trainval_full.txt','w') as f:
-        for im in trn_img+tst_img:
+        for im in trn_all_img:
             f.write(im + '\n')
     with open('../data/Multi/ImageSets/Main/train_full.txt','w') as f:
-        for im in trn_img+tst_img:
+        for im in trn_all_img:
             f.write(im + '\n')
             
     
@@ -313,41 +325,45 @@ if bbimg_tst:
         list_file.write(fl + '\n')
     list_file.close()
 
-## Check the resized boundary box works with the resized image
-#if validate_rfcn:
-#    blocks_all = np.sort(blocks.block.unique())
-#    imgfiles = os.listdir('../data/JPEGImagesBlk/')
-#    rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30K_det_trainval_seals.txt",\
-#                    delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
-#    rfcn['img'] = rfcn['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
-#    rfcn = rfcn[rfcn['proba']>0.7]
-#    rfcn = rfcn[(rfcn['x1']-rfcn['x0'])<150]
-#    rfcn = rfcn[(rfcn['y1']-rfcn['y0'])<150]
-#    # 245, 351, 541
-#    # for samp in range(10,2100, 200):
-#    for samp in blocks_all:
-#        #block = blocks[blocks['id']%2==1].iloc[samp]
-#        block = blocks.iloc[0]
-#        img_samp = 1#583
-#        block['id', 'block'] = img_samp, samp
-#        if '%s_%s.jpg'%(block['id'], block['block']) in imgfiles:    
-#            img = imread('../data/JPEGImagesBlk/%s_%s.jpg'%(block['id'], block['block']))
-#            bbox = rfcn[rfcn['img'] == str(block['id']) + '_' + str(block['block'])]
-#            bbox['w'] = bbox['x1'] - bbox['x0']
-#            bbox['h'] = bbox['y1'] - bbox['y0']
-#            plt.figure(figsize=(10,10))
-#            plt.imshow(img) 
-#            for c, row in bbox.iterrows():
-#                is_seal = ((coords['id']==img_samp) & \
-#                            (coords['block'] == samp) & \
-#                            (coords['block_width']>(int(row['x0'])-20)) & \
-#                            (coords['block_width']<(int(row['x1'])+20)) & \
-#                            (coords['block_height']>(int(row['y0'])-20)) & \
-#                            (coords['block_height']<(int(row['y1'])+20))).any()
-#                plt.gca().add_patch(create_rect5(row, is_seal))    
-#                break
-#        else:
-#            print 'Not there %s_%s.jpg'%(block['id'], block['block'])
+# Check the resized boundary box works with the resized image
+if validate_rfcn:
+    blocks_all = np.sort(blocks.block.unique())
+    imgfiles = os.listdir('../data/JPEGImagesBlk/')
+    rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30K_det_trainval_seals.txt",\
+                    delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+    #rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30000_det_test_seals_multi_fold1.txt",\
+    #                delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+                    
+    rfcn['img'] = rfcn['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
+    rfcn = rfcn[rfcn['proba']>0.7]
+    rfcn = rfcn[(rfcn['x1']-rfcn['x0'])<180]
+    rfcn = rfcn[(rfcn['y1']-rfcn['y0'])<180]
+    # 245, 351, 541
+    # for samp in range(10,2100, 200):
+    for samp in blocks_all[[2]]:
+        #block = blocks[blocks['id']%2==1].iloc[samp]
+        block = blocks.iloc[0]
+        img_samp = 401
+        block['id', 'block'] = img_samp, samp
+        if '%s_%s.jpg'%(block['id'], block['block']) in imgfiles:    
+            print '../data/JPEGImagesBlk/%s_%s.jpg'%(block['id'], block['block'])
+            img = imread('../data/JPEGImagesBlk/%s_%s.jpg'%(block['id'], block['block']))
+            bbox = rfcn[rfcn['img'] == str(block['id']) + '_' + str(block['block'])]
+            bbox['w'] = bbox['x1'] - bbox['x0']
+            bbox['h'] = bbox['y1'] - bbox['y0']
+            plt.figure(figsize=(10,10))
+            plt.imshow(img) 
+            for c, row in bbox.iterrows():
+                is_seal = ((coords['id']==img_samp) & \
+                            (coords['block'] == samp) & \
+                            (coords['block_width']>(int(row['x0'])-20)) & \
+                            (coords['block_width']<(int(row['x1'])+20)) & \
+                            (coords['block_height']>(int(row['y0'])-20)) & \
+                            (coords['block_height']<(int(row['y1'])+20))).any()
+                plt.gca().add_patch(create_rect5(row, is_seal))    
+                #break
+        else:
+            print 'Not there %s_%s.jpg'%(block['id'], block['block'])
 #
 #
 #
