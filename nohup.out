@@ -124,3 +124,31 @@
 [I 22:15:39.970 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
 [I 22:16:01.832 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
 [I 22:16:36.487 NotebookApp] Saving file at /scripts/resnet50TestClassPred0405.ipynb
+[W 13:27:38.918 NotebookApp] Unrecognized JSON config file version, assuming version 1
+[I 13:27:39.846 NotebookApp] [nb_conda_kernels] enabled, 1 kernels found
+[I 13:27:39.854 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[I 13:27:39.984 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 13:27:39.984 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 13:27:39.989 NotebookApp] [nb_conda] enabled
+[I 13:27:40.053 NotebookApp] [nb_anacondacloud] enabled
+[I 13:27:40.056 NotebookApp] Serving notebooks from local directory: /home/darragh/Dropbox/noaa
+[I 13:27:40.056 NotebookApp] 0 active kernels 
+[I 13:27:40.056 NotebookApp] The Jupyter Notebook is running at: http://localhost:8888/
+[I 13:27:40.056 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+Created new window in existing browser session.
+[I 13:28:33.920 NotebookApp] Copying scripts/vgg16CVPred2604.ipynb to /scripts
+[W 13:28:33.949 NotebookApp] Notebook scripts/vgg16CVPred2604.ipynb is not trusted
+[W 13:28:33.957 NotebookApp] Saving untrusted notebook scripts/vgg16CVPred2604-Copy1.ipynb
+[W 13:29:06.385 NotebookApp] Notebook scripts/vgg16CVPred_small2005.ipynb is not trusted
+[W 13:29:06.413 NotebookApp] 404 GET /nbextensions/nb_anacondacloud/main.js?v=20170520132739 (127.0.0.1) 19.88ms referer=http://localhost:8888/notebooks/scripts/vgg16CVPred_small2005.ipynb
+[I 13:29:06.634 NotebookApp] Kernel started: 536a684d-0d4b-46b0-a140-c6941f464d1e
+[W 13:29:06.642 NotebookApp] 404 GET /kernelspecs/Python%20[Root]/logo-64x64.png (127.0.0.1) 2.21ms referer=http://localhost:8888/notebooks/scripts/vgg16CVPred_small2005.ipynb
+[I 13:29:12.341 NotebookApp] Kernel interrupted: 536a684d-0d4b-46b0-a140-c6941f464d1e
+[I 13:29:17.984 NotebookApp] Kernel restarted: 536a684d-0d4b-46b0-a140-c6941f464d1e
+[I 13:31:06.607 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb
+[I 13:33:06.606 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb
+[I 13:35:04.582 NotebookApp] Kernel restarted: 536a684d-0d4b-46b0-a140-c6941f464d1e
+[I 13:35:06.605 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb
+[I 13:37:06.606 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb
+[I 13:39:06.605 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb
+[I 13:40:37.908 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb

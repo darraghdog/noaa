@@ -331,19 +331,19 @@ if validate_rfcn:
     imgfiles = os.listdir('../data/JPEGImagesBlk/')
     rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30K_det_trainval_seals.txt",\
                     delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
-    #rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30000_det_test_seals_multi_fold1.txt",\
-    #                delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
+    rfcn = pd.read_csv("~/Dropbox/noaa/coords/comp4_30000_det_test_seals_small_multi_fold1.txt",\
+                    delimiter = " ", header=None, names=['img', 'proba', 'x0', 'y0', 'x1', 'y1'])
                     
     rfcn['img'] = rfcn['img'].str.replace('/home/ubuntu/noaa/darknet/seals/JPEGImagesBlk/', '')
-    rfcn = rfcn[rfcn['proba']>0.7]
+    rfcn = rfcn[rfcn['proba']>0.5]
     rfcn = rfcn[(rfcn['x1']-rfcn['x0'])<180]
     rfcn = rfcn[(rfcn['y1']-rfcn['y0'])<180]
     # 245, 351, 541
     # for samp in range(10,2100, 200):
-    for samp in blocks_all[[2]]:
+    for samp in blocks_all[10:20]:
         #block = blocks[blocks['id']%2==1].iloc[samp]
         block = blocks.iloc[0]
-        img_samp = 401
+        img_samp = 65
         block['id', 'block'] = img_samp, samp
         if '%s_%s.jpg'%(block['id'], block['block']) in imgfiles:    
             print '../data/JPEGImagesBlk/%s_%s.jpg'%(block['id'], block['block'])
