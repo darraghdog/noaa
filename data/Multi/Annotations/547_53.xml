@@ -17,32 +17,8 @@
 		<difficult>0</difficult>
 		<bndbox>
 			<xmin>0.1</xmin>
-			<ymin>59.0</ymin>
-			<xmax>70.1</xmax>
-			<ymax>169.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>0.1</xmin>
-			<ymin>74.0</ymin>
-			<xmax>55.1</xmax>
-			<ymax>154.0</ymax>
-		</bndbox>
-	</object>
-	<object>
-		<name>seals</name>
-		<pose>Unspecified</pose>
-		<truncated>0</truncated>
-		<difficult>0</difficult>
-		<bndbox>
-			<xmin>0.1</xmin>
-			<ymin>84.0</ymin>
-			<xmax>45.1</xmax>
-			<ymax>144.0</ymax>
+			<ymin>89.0</ymin>
+			<xmax>40.1</xmax>
+			<ymax>139.0</ymax>
 		</bndbox>
 	</object></annotation>
