@@ -228,3 +228,71 @@ Created new window in existing browser session.
 [I 13:39:06.605 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb
 [I 13:40:37.908 NotebookApp] Saving file at /scripts/vgg16CVPred_small2005.ipynb
 >>>>>>> e783c01b998b94cc731c93ace2d77bcd04c09262
+[I 13:02:25.372 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+[I 13:02:25.376 NotebookApp] Writing notebook server cookie secret to /run/user/1000/jupyter/notebook_cookie_secret
+[W 13:02:30.804 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+[I 13:02:31.723 NotebookApp] ✓ nbpresent HTML export ENABLED
+[W 13:02:31.723 NotebookApp] ✗ nbpresent PDF export DISABLED: No module named nbbrowserpdf.exporters.pdf
+[I 13:02:31.727 NotebookApp] [nb_conda] enabled
+[I 13:02:35.848 NotebookApp] [nb_anacondacloud] enabled
+[I 13:02:35.853 NotebookApp] Serving notebooks from local directory: /home/ubuntu/noaa
+[I 13:02:35.853 NotebookApp] 0 active kernels 
+[I 13:02:35.853 NotebookApp] The Jupyter Notebook is running at: http://[all ip addresses on your system]:8888/
+[I 13:02:35.853 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 13:02:46.612 NotebookApp] 302 GET / (176.61.36.2) 0.65ms
+[I 13:02:46.630 NotebookApp] 302 GET /tree (176.61.36.2) 0.72ms
+[I 13:03:02.227 NotebookApp] 302 POST /login?next=%2Ftree (176.61.36.2) 0.86ms
+[I 13:03:40.937 NotebookApp] Kernel started: 303ba38c-a640-4ff6-b9c3-70543033f30a
+[I 13:04:04.749 NotebookApp] Kernel restarted: 303ba38c-a640-4ff6-b9c3-70543033f30a
+[I 13:05:41.125 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 13:07:40.654 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 13:09:05.698 NotebookApp] Copying scripts/vggcountCV.ipynb to /scripts
+[I 13:09:28.282 NotebookApp] Kernel started: 4b03c62d-fc1f-4cf0-9d0b-f66e45165be5
+[I 13:09:39.324 NotebookApp] Kernel restarted: 4b03c62d-fc1f-4cf0-9d0b-f66e45165be5
+[I 13:09:41.124 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 13:11:28.306 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:13:28.308 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:15:28.300 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:17:28.312 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:19:28.293 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:20:48.456 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 13:21:28.306 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:22:29.849 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:22:38.073 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:23:07.435 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:23:28.289 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:23:31.834 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:25:19.485 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:27:20.130 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:32:29.497 NotebookApp] Kernel interrupted: 303ba38c-a640-4ff6-b9c3-70543033f30a
+[W 13:32:38.094 NotebookApp] Notebook scripts/vgg16CVPred2604.ipynb is not trusted
+[I 13:32:38.301 NotebookApp] Kernel started: de1e31f7-8878-495a-9c2e-d1ba0a296cc7
+[I 13:33:33.804 NotebookApp] Kernel restarted: 303ba38c-a640-4ff6-b9c3-70543033f30a
+[I 13:33:40.640 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 13:33:46.698 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 13:34:08.814 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 14:13:40.633 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 14:13:42.716 NotebookApp] Kernel interrupted: 303ba38c-a640-4ff6-b9c3-70543033f30a
+[I 14:13:54.444 NotebookApp] Kernel restarted: 303ba38c-a640-4ff6-b9c3-70543033f30a
+[I 14:15:41.068 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 15:07:41.021 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 15:15:41.033 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 15:21:40.560 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 16:03:01.385 NotebookApp] Kernel restarted: 303ba38c-a640-4ff6-b9c3-70543033f30a
+[I 16:03:40.985 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 17:31:40.566 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 20:59:04.800 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 20:59:27.935 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 21:00:08.208 NotebookApp] Kernel restarted: 4b03c62d-fc1f-4cf0-9d0b-f66e45165be5
+[I 21:01:27.926 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 22:03:28.745 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 22:14:40.024 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 22:15:28.697 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 23:10:24.595 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 23:10:29.755 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[I 23:10:42.063 NotebookApp] Saving file at /scripts/vggcountCV.ipynb
+[W 01:22:17.685 NotebookApp] 404 GET http://www.baidu.com/cache/global/img/gs.gif (93.174.93.136) 10.88ms referer=None
+[I 01:27:27.750 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 08:09:27.426 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 08:11:27.455 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
+[I 08:14:09.927 NotebookApp] Saving file at /scripts/vggcountTest.ipynb
