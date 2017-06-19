@@ -194,11 +194,6 @@ for( var in target_cols){
   }
 
 
-means =c(5,	4,	26,	15,	11)
-colMeans(subDt)
-subDt[["pups"]] = subDt[["pups"]] * means[5]/colMeans(subDt)[5]
-subDt[["adult_females"]] = subDt[["adult_females"]] * means[3]/colMeans(subDt)[3]
-
 sub_ct = fread("../sub/sub-RFCN-2017-04-27-0.2_tune.csv")
 sub_out = sub_ct
 for(var in target_cols) print(paste0(round(cor(sub_out[[var]], sub_ct[[var]]), 3), " ... ", var))
@@ -214,7 +209,7 @@ sub_out
 sub_ct
 subDt
 
-write.csv(sub_out, paste0("../sub/sub-count-of-type-", Sys.Date(), "4.csv"), row.names = F)
+write.csv(sub_out, paste0("../sub/sub-count-of-type-", Sys.Date(), "5.csv"), row.names = F)
 
 colMeans(sub_ct)
 colMeans(subDt)

@@ -49,16 +49,10 @@ rm(meta_tst1, meta_tst2, meta_trn1, meta_trn2)
 target_cols = names(meta_trn)[2:6]
 resnfile = c(paste0("resnet50CVPreds2604_fold", 1:2, ".csv"))
 vggfile = c(paste0("vggCVPreds2604_fold", 1:2, ".csv"))
-vgg1file = c(paste0("marios/mariosvggCVPred60_fold", 1:2, ".csv"))
-vgg2file = c(paste0("marios/mariosvggCVPredown_fold", 1:2, ".csv"))
 resn50trn = rbind(fread(resnfile[1]), fread(resnfile[2]))
 vggtrn = rbind(fread(vggfile[1]), fread(vggfile[2]))
-vgg1trn = rbind(fread(vgg1file[1]), fread(vgg1file[2]))
-vgg2trn = rbind(fread(vgg2file[1]), fread(vgg2file[2]))
 resn50tst = fread("resnet50TestPreds2604.csv")  
 vggtst = fread("vggTestPreds2604.csv")
-vgg1tst = fread("marios/mariosvggPred60.csv")
-vgg2tst = fread("marios/mariosvggPredown.csv")
 
 # Load up MultiFiles
 vggmfile = c(paste0("vggCVMultiPreds1605_fold", 1:2, ".csv"))
@@ -70,20 +64,6 @@ vggtrn[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 vggtst[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 vggbigtrn = getBreaks(vggtrn, c(seq(.2,.8,.2), .9, .95), "vgg")
 vggbigtst = getBreaks(vggtst, c(seq(.2,.8,.2), .9, .95), "vgg")
-
-# Get a function to break up the block predictions
-vgg1trn[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
-vgg1tst[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
-vgg1bigtrn = getBreaks(vgg1trn, c(.5, .8), "vgg1")
-vgg1bigtst = getBreaks(vgg1tst, c(.5, .8), "vgg1")
-
-# Get a function to break up the block predictions
-vgg2trn[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
-vgg2tst[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
-vgg2bigtrn = getBreaks(vgg2trn, c(.5, .8), "vgg2")
-vgg2bigtst = getBreaks(vgg2tst, c(.5, .8), "vgg2")
-
-
 resn50trn[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 resn50tst[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 resn50bigtrn = getBreaks(resn50trn, c(seq(.2,.8,.2), .9, .95), "resn50")
@@ -93,10 +73,8 @@ resn50bigtst = getBreaks(resn50tst, c(seq(.2,.8,.2), .9, .95), "resn50")
 vggmtrn[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 vggmtst[, bigimg := unlist(lapply(strsplit(img, "_"), function(x) x[1]))]
 for(var in grep("seal", names(vggmtrn), value = T)){
-  vggmtrn[[paste0(var, "A")]] = ifelse(vggmtrn[[var]]>0.25, 1, 0)
-  vggmtst[[paste0(var, "A")]] = ifelse(vggmtst[[var]]>0.25, 1, 0)
-  vggmtrn[[var]] = ifelse(vggmtrn[[var]]>0.5, 1, 0)
-  vggmtst[[var]] = ifelse(vggmtst[[var]]>0.5, 1, 0)
+  vggmtrn[[var]] = ifelse(vggmtrn[[var]]>0.3, 1, 0)
+  vggmtst[[var]] = ifelse(vggmtst[[var]]>0.3, 1, 0)
 }
 vggmtrn[,img:=NULL]
 vggmtst[,img:=NULL]
@@ -109,10 +87,6 @@ vggmtst[["img"]] = as.integer(vggmtst[["img"]])
 
 ct_trn = merge(resn50bigtrn, vggbigtrn, all = T, by = "img") 
 ct_tst = merge(resn50bigtst, vggbigtst, all = T, by = "img") 
-ct_trn = merge(ct_trn, vgg1bigtrn, all = T, by = "img") 
-ct_tst = merge(ct_tst, vgg1bigtst, all = T, by = "img") 
-ct_trn = merge(ct_trn, vgg2bigtrn, all = T, by = "img") 
-ct_tst = merge(ct_tst, vgg2bigtst, all = T, by = "img") 
 ct_trn = merge(ct_trn, vggmtrn, all = T, by = "img") 
 ct_tst = merge(ct_tst, vggmtst, all = T, by = "img") 
 rm(vggtrn, vggbigtrn, resn50trn, resn50bigtrn, vggmtrn)
@@ -163,17 +137,17 @@ for( var in target_cols){
 print(mean(result))
 
 # [1] "Results for: adult_males"
-# [1] 3.858758
+# [1] 4.055452
 # [1] "Results for: subadult_males"
-# [1] 6.065764
+# [1] 6.590218
 # [1] "Results for: adult_females"
-# [1] 34.66853
+# [1] 35.25834
 # [1] "Results for: juveniles"
-# [1] 35.20152
+# [1] 45.02745
 # [1] "Results for: pups"
-# [1] 27.32937
+# [1] 30.59307
 # > print(mean(result))
-# [1] 21.42479
+# [1] 24.30491
 
 
 # Make the sub file
@@ -193,12 +167,6 @@ for( var in target_cols){
   subDt[[var]] = pmax(0, round(predict(model, Xtst)))
   }
 
-
-means =c(5,	4,	26,	15,	11)
-colMeans(subDt)
-subDt[["pups"]] = subDt[["pups"]] * means[5]/colMeans(subDt)[5]
-subDt[["adult_females"]] = subDt[["adult_females"]] * means[3]/colMeans(subDt)[3]
-
 sub_ct = fread("../sub/sub-RFCN-2017-04-27-0.2_tune.csv")
 sub_out = sub_ct
 for(var in target_cols) print(paste0(round(cor(sub_out[[var]], sub_ct[[var]]), 3), " ... ", var))
@@ -214,8 +182,7 @@ sub_out
 sub_ct
 subDt
 
-write.csv(sub_out, paste0("../sub/sub-count-of-type-", Sys.Date(), "4.csv"), row.names = F)
+write.csv(sub_out, paste0("../sub/sub-count-of-type-", Sys.Date(), ".csv"), row.names = F)
 
-colMeans(sub_ct)
-colMeans(subDt)
+
   
