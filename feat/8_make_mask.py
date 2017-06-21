@@ -18,6 +18,8 @@ from scipy.misc import imsave
 from PIL import Image
 import numpy as np
 import warnings
+import matplotlib.pyplot as plt
+from skimage import draw
 warnings.filterwarnings('ignore')
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
@@ -48,6 +50,10 @@ coords = coords[['id', 'block', 'class', 'block_width', 'block_height']]
 img_files = coords[['id', 'block']].drop_duplicates().reset_index(drop=True)
 os.chdir('/hdd/ultra')
 
+'''
+FIRST ALL FOR ONE CLASS
+'''
+
 # Process training images
 makeDir('raw1')
 img_all = os.listdir('JPEGImagesBlk')
@@ -63,12 +69,6 @@ for f in range(2):
             radius = boundaries[row1['class']]/2
             rr, cc = draw.circle(row1['block_height'], row1['block_width'], radius=radius, shape=tif.shape)
             tif[rr, cc] = 1
-            #brdr = boundaries[row1['class']]/5
-            #xmin = max(0, row1['block_width']-brdr)
-            #xmax = min(544, row1['block_width']+brdr)
-            #ymin = max(0, row1['block_height']-brdr)
-            #ymax = min(544, row1['block_height']+brdr)
-            #tif[ymin:ymax, xmin:xmax] = 255
         imsave('raw1/'+ fold +'/%s_%s.tif'%(row[0], row[1]), tif)
         src = os.path.join(ULTRA, 'JPEGImagesBlk/%s_%s.jpg'%(row[0], row[1]))
         dst = os.path.join(ULTRA, 'raw1', fold, '%s_%s.jpg'%(row[0], row[1]))
@@ -79,13 +79,12 @@ preds = pd.read_csv('~/Dropbox/noaa/coords/vggTestPreds2604.csv')
 idx = preds.groupby(['img'])['predSeal'].transform(max) == preds['predSeal']
 preds = preds[idx]
 preds = preds[preds['predSeal']>0.6]
+preds['img'] = preds['img'] + '.jpg'
 preds[['img']].to_csv(os.path.join(ULTRA, 'test_imgname.csv.gz'), 
      compression = "gzip", index = False)
 
 
 
-import matplotlib.pyplot as plt
-from skimage import draw
 arr = np.zeros((200, 200))
 rr, cc = draw.circle(100, 100, radius=40, shape=arr.shape)
 arr[rr, cc] = 1
@@ -94,3 +93,36 @@ plt.show()
 
 plt.imshow(tif)
 plt.show()
+
+'''
+NOW MULTIPLE CLASSES
+'''
+
+# Process training images
+boundaries = [90,80,60,60,40]
+makeDir('raw2')
+vggCVpred = pd.concat([pd.read_csv('~/Dropbox/noaa/coords/vggCVPreds2604_fold1.csv'),
+           pd.read_csv('~/Dropbox/noaa/coords/vggCVPreds2604_fold2.csv')], axis = 0)
+idx = vggCVpred.groupby(['img'])['predSeal'].transform(max) == vggCVpred['predSeal']
+vggCVpred = vggCVpred[idx]
+vggCVpred = vggCVpred[vggCVpred['predSeal']>0.6].reset_index(drop=True)
+vggCVpred['id'] = vggCVpred['img'].map(lambda x: int(x.split('_')[0]))
+vggCVpred['block'] = vggCVpred['img'].map(lambda x: x.split('_')[1])
+
+img_all = os.listdir('JPEGImagesBlk')
+for f in range(2):
+    fold = 'fold'+str(f+1) 
+    makeDir('raw2/'+fold)
+    for c, row in vggCVpred[vggCVpred['id']%2==f].reset_index(drop=True).iterrows():
+        tif = np.zeros((544,544, 6), dtype=np.uint8)
+        if row['id'] in coords.id:
+            dftmp = coords[(coords['id']==row['id']) & (coords['block']==int(row['block'])) ].reset_index(drop=True)
+            for c1, row1 in dftmp.iterrows():
+                radius = boundaries[row1['class']]/2
+                rr, cc = draw.circle(row1['block_height'], row1['block_width'], radius=radius, shape=tif.shape)
+                tif[rr, cc, row1['class']] = 1
+        
+        np.save('raw2/'+ fold +'/%s_%s'%(row[2], row[3]), tif)
+        src = os.path.join(ULTRA, 'JPEGImagesBlk/%s_%s.jpg'%(row[2], row[3]))
+        dst = os.path.join(ULTRA, 'raw2', fold, '%s_%s.jpg'%(row[2], row[3]))
+        copyfile(src, dst)
