@@ -73,7 +73,16 @@ for f in range(2):
         src = os.path.join(ULTRA, 'JPEGImagesBlk/%s_%s.jpg'%(row[0], row[1]))
         dst = os.path.join(ULTRA, 'raw1', fold, '%s_%s.jpg'%(row[0], row[1]))
         copyfile(src, dst)
-        
+
+# Create a file with the test images 
+preds = pd.read_csv('~/Dropbox/noaa/coords/vggTestPreds2604.csv')
+idx = preds.groupby(['img'])['predSeal'].transform(max) == preds['predSeal']
+preds = preds[idx]
+preds = preds[preds['predSeal']>0.6]
+preds[['img']].to_csv(os.path.join(ULTRA, 'test_imgname.csv.gz'), 
+     compression = "gzip", index = False)
+
+
 
 import matplotlib.pyplot as plt
 from skimage import draw
