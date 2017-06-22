@@ -93,7 +93,7 @@ def create_model(img_rows, img_cols, img_channels, smooth = 1., dropout_val=0.05
     return model
 
 def preprocess_img(imgs, img_rows, img_cols, img_channels):
-    imgs_p = np.ndarray((imgs.shape[0], img_rows, img_cols, img_channels), dtype=np.float64)
+    imgs_p = np.ndarray((imgs.shape[0], img_rows, img_cols, img_channels), dtype=np.float32)
     for i in range(imgs.shape[0]):
         imgs_p[i] = imgs[i]
 

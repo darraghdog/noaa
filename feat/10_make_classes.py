@@ -16,7 +16,7 @@ from skimage import draw
 
 
 # 'adult_males', 'subadult_males','adult_females','juveniles','pups',
-os.chdir('/home/darragh/Dropbox/noaa/feat')
+# os.chdir('/home/darragh/Dropbox/noaa/feat')
 boundaries = [80,70,70,70,50]
 colors = ['red', 'blue', 'green', 'yellow', 'pink']
 validate = False
@@ -32,7 +32,7 @@ img_cols = 544
 img_w = 4896 # width
 img_h = 3264 # height
 classes = 5
-MASK_FOLDER = '/home/darragh/Dropbox/noaa/data/mask/classes'
+MASK_FOLDER = '/home/ubuntu/noaa/data/mask/classes/train'
 
 def makeDir(name):
     if not os.path.exists(name):
@@ -69,8 +69,10 @@ vggCVpred = vggCVpred[vggCVpred['predSeal']>0.6].reset_index(drop=True)
 vggCVpred['id'] = vggCVpred['img'].map(lambda x: int(x.split('_')[0]))
 vggCVpred['block'] = vggCVpred['img'].map(lambda x: x.split('_')[1])
 
-img_all = os.listdir('../data/JPEGImagesBlk')
+img_all = os.listdir('../darknet/seals/JPEGImagesBlk')
 for c, row in vggCVpred.reset_index(drop=True).iterrows():
+    if c % 1000== 0 : 
+        print "Row: " + str(c)
     tif = np.zeros((544,544, classes), dtype=np.uint8)
     if row['id'] in coords.id:
         dftmp = coords[(coords['id']==row['id']) & (coords['block']==int(row['block'])) ].reset_index(drop=True)
@@ -81,4 +83,5 @@ for c, row in vggCVpred.reset_index(drop=True).iterrows():
     
     np.save(MASK_FOLDER +'/%s_%s'%(row[2], row[3]), tif)
     
-show_mask(tif)
+
+ #show_mask(tif)
